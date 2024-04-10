@@ -1,5 +1,4 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Home from './components/Home/Home/Home';
 import SignInForm from './components/Login/SignInForm';
 import DoctorBooking from './components/Booking/DoctorBooking/DoctorBooking';
@@ -30,7 +29,8 @@ import Blog from './components/Blog/Blog';
 import BlogDetails from './components/Blog/BlogDetails';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
-import Service from './components/Service/Service';
+import CampaignDetails  from "./components/CampaignDetails/CampaignDetails";
+import Service from './components/Service/ListCampaign';
 import AppointmentPage from './components/Appointment/AppointmentPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
 import Treatment from './components/Doctor/Treatment/Treatment';
@@ -42,7 +42,17 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+import Choserole from './components/ChoseRole/ChoseRole';
+
+import ListProject from './components/ListProject/ListProject';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './App.css'
+import ListCampaign from './components/Service/ListCampaign';
+import ListSchool from './components/ListSchool/SearchSchool';
+import SearchSchool from './components/ListSchool/SearchSchool';
+import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
+
 function App() {
   return (
     <Router>
@@ -72,10 +82,13 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/service' element={<Service />} />
+        <Route path='/list-campaign' element={<ListCampaign />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
+        <Route path='/campaignDetail' element={<CompaignDetail/>} />
+
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
@@ -95,6 +108,17 @@ function App() {
         <Route path='/admin/reviews' element={<AdminReviews />} />
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
+
+        <Route path='/listProject' element={<ListProject />} />
+
+        <Route path='/choseRole' element={<Choserole />} />
+
+        <Route path="/campaigns/:id" element={<CampaignDetails />} />
+
+
+        {/* Sinh vien */}
+        <Route path='/school' element = {<SearchSchool />}/>
+
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
