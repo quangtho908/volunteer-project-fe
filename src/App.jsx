@@ -95,6 +95,7 @@ function App() {
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />
         <Route path='/booking/success/:id' element={<BookingSuccess />} />
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
+
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/appointments' element={<AdminAppointments />} />
