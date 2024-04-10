@@ -1,0 +1,63 @@
+.award-img {
+    height: 120px;
+    margin-bottom: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: #eff0f3;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 15px;
+}
+.say-about {
+    position: relative;
+}
+.mr-10 {
+    margin-right: 10px;
+  }
+.say-about:before {
+    width: 48%;
+    height: 100%;
+    top: 0;
+    left: 0px;
+    position: absolute;
+    content: "";
+    background: url("../../images/doc/doc4.jpg") no-repeat 50% 50%;
+}
+.campaign-details {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .campaign-header {
+    margin-bottom: 2rem;
+  }
+  
+  .campaign-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .campaign-description {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .campaign-info .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .info-label {
+    font-weight: bold;
+    color: #333;
+    margin-right: 1rem;
+  }
+  
+  .info-value {
+    color: #555;
+  }
