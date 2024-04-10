@@ -42,8 +42,12 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+<<<<<<< HEAD
 import ListSchool from './components/ListSchool/SearchSchool';
 import SearchSchool from './components/ListSchool/SearchSchool';
+=======
+import CompaignDetail from './components/CompaignDetail/CompainDetail';
+>>>>>>> 246d58b755ffe6f6d074abd827732107934a8f5f
 
 function App() {
   return (
@@ -77,6 +81,8 @@ function App() {
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
+        <Route path='/campaignDetail' element={<CompaignDetail/>} />
+
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
