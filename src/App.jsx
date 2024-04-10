@@ -42,6 +42,7 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+import ListProject from './components/ListProject/ListProject';
 
 function App() {
   return (
@@ -81,6 +82,9 @@ function App() {
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />
         <Route path='/booking/success/:id' element={<BookingSuccess />} />
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
+
+
+        <Route path='/listProject' element={<ListProject />} />
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/appointments' element={<AdminAppointments />} />
