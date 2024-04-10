@@ -46,11 +46,11 @@ import NotFound from './components/UI/NotFound';
 import Choserole from './components/ChoseRole/ChoseRole';
 
 import ListProject from './components/ListProject/ListProject';
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import ListCampaign from './components/Service/ListCampaign';
-
+import ListSchool from './components/ListSchool/SearchSchool';
+import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 
 
@@ -95,9 +95,6 @@ function App() {
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />
         <Route path='/booking/success/:id' element={<BookingSuccess />} />
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
-
-
-        <Route path='/listProject' element={<ListProject />} />
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/appointments' element={<AdminAppointments />} />
@@ -111,6 +108,10 @@ function App() {
         <Route path='/choseRole' element={<Choserole />} />
 
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
+
+
+        {/* Sinh vien */}
+        <Route path='/school' element = {<SearchSchool />}/>
 
 
         <Route path='*' element={<NotFound/>}/>
