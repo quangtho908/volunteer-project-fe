@@ -42,6 +42,9 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+
+import Choserole from './components/ChoseRole/ChoseRole';
+
 import ListProject from './components/ListProject/ListProject';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
@@ -101,10 +104,15 @@ function App() {
         <Route path='/admin/reviews' element={<AdminReviews />} />
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
+
+        <Route path='/choseRole' element={<Choserole />} />
+
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
+
 
         {/* Sinh vien */}
         <Route path='/school' element = {<SearchSchool />}/>
+
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
