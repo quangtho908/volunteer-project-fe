@@ -1,5 +1,4 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Home from './components/Home/Home/Home';
 import SignInForm from './components/Login/SignInForm';
 import DoctorBooking from './components/Booking/DoctorBooking/DoctorBooking';
@@ -30,7 +29,8 @@ import Blog from './components/Blog/Blog';
 import BlogDetails from './components/Blog/BlogDetails';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
-import Service from './components/Service/Service';
+import CampaignDetails  from "./components/CampaignDetails/CampaignDetails";
+import Service from './components/Service/ListCampaign';
 import AppointmentPage from './components/Appointment/AppointmentPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
 import Treatment from './components/Doctor/Treatment/Treatment';
@@ -42,6 +42,11 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import './App.css'
+import ListCampaign from './components/Service/ListCampaign';
+
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 
 function App() {
@@ -72,6 +77,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/service' element={<Service />} />
+        <Route path='/list-campaign' element={<ListCampaign />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
@@ -93,6 +99,7 @@ function App() {
         <Route path='/admin/reviews' element={<AdminReviews />} />
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
+        <Route path="/campaigns/:id" element={<CampaignDetails />} />
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
