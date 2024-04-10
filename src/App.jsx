@@ -42,7 +42,8 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
-import ListSchool from './components/ListSchool/ListSchool';
+import ListSchool from './components/ListSchool/SearchSchool';
+import SearchSchool from './components/ListSchool/SearchSchool';
 
 function App() {
   return (
@@ -94,7 +95,7 @@ function App() {
         <Route path='/admin/specialites' element={<Specialites />} />
 
         {/* Sinh vien */}
-        <Route path='/school' element = {<ListSchool />}/>
+        <Route path='/school' element = {<SearchSchool />}/>
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
