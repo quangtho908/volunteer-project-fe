@@ -42,6 +42,7 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+import ListSchool from './components/ListSchool/ListSchool';
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />
         <Route path='/booking/success/:id' element={<BookingSuccess />} />
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
+
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/appointments' element={<AdminAppointments />} />
@@ -90,6 +92,9 @@ function App() {
         <Route path='/admin/reviews' element={<AdminReviews />} />
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
+
+        {/* Sinh vien */}
+        <Route path='/school' element = {<ListSchool />}/>
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
