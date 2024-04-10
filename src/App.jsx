@@ -42,9 +42,13 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import ListCampaign from './components/Service/ListCampaign';
+
+import CompaignDetail from './components/CompaignDetail/CompainDetail';
+
 function App() {
   return (
     <Router>
@@ -78,6 +82,8 @@ function App() {
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
+        <Route path='/campaignDetail' element={<CompaignDetail/>} />
+
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
         <Route path='/dashboard/blogs/create' element={<AddBlog />} />
