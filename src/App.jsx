@@ -106,6 +106,8 @@ function App() {
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
 
+        <Route path='/listProject' element={<ListProject />} />
+
         <Route path='/choseRole' element={<Choserole />} />
 
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
