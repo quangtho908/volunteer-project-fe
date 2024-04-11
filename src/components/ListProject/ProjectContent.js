@@ -20,7 +20,7 @@ const ProjectContent = ({ }) => {
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s" className="" alt="User Image" />
                     </div>
                     <div className="doc-info">
-                        <h5 className='mb-0'><Link to={`/doctors/profile/1`}>Mùa Hè Xanh: Hành động cho môi trường</Link></h5>
+                        <h5 className='mb-0'><Link to={`/detail/studentList/1`}>Mùa Hè Xanh: Hành động cho môi trường</Link></h5>
                         <p className='m-0 form-text'>Hành động cho môi trường" thúc đẩy mọi người tham gia vào các hoạt động bảo vệ môi trường để tạo ra một mùa hè và một tương lai bền vững hơn.</p>
                         {/* <p className="doc-department m-0"><img src={showImg} className="img-fluid" alt="Speciality" />Urology</p> */}
 
@@ -58,7 +58,7 @@ const ProjectContent = ({ }) => {
                     </div>
                     <div className="clinic-booking">
                         <div  className='clinic-booking-button'>
-                            <Link to={`/doctors/profile/1`} className="pro-btn" >   chi tiết   </Link>
+                            <Link to={`/detail/studentList/1`} className="pro-btn" >   chi tiết   </Link>
                         </div>
                         <div  className='clinic-booking-button mt-2'>
                             <Link to={`/booking/1`} className="apt-btn">Đăng Ký</Link>
