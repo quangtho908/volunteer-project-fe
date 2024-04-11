@@ -114,12 +114,6 @@ const CampaignDetails = () => {
                     {content}
                 </div>
             </div>
-
-         
-
-        
-
-     
             <Footer />
         </>
     )

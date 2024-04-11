@@ -8,6 +8,7 @@ import { Empty } from 'antd';
 import { Pagination } from 'antd';
 import Header from '../Shared/Header/Header';
 import SubHeader from '../Shared/SubHeader';
+import { useNavigate } from 'react-router-dom';
 
 const SearchSchool = () => {
     const [page, setPage] = useState(1);
@@ -22,6 +23,12 @@ const SearchSchool = () => {
     // Đặt giá trị mặc định cho isLoading và isError
     const isLoading = false;
     const isError = false;
+
+    const navigate = useNavigate();
+
+    const handleDetail = (id) => {
+        navigate('/listProjectSV/' + id);
+    }
 
     const mockSchoolsData = [
         { id: 1, name: "Universities 1", specialty: "Specialty 1", gender: "Male" },
@@ -59,7 +66,9 @@ const SearchSchool = () => {
     <>
     {mockSchoolsData && mockSchoolsData?.map((item, id) => (
         <div key={id + item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
-            <div className='d-flex p-3 justify-content-between'>
+            <div onClick={() => {
+               handleDetail(item.id);
+            }} className='d-flex p-3 justify-content-between'>
                 <div className='d-flex gap-3'>
                     <div className='doc-img-fluid d-flex align-items-center'>
                         <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
