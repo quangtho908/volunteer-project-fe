@@ -48,13 +48,12 @@ import ListProject from './components/ListProject/ListProject';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import ListCampaign from './components/Service/ListCampaign';
-// import ListSchool from './components/ListSchool/SearchSchool';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
 import StudentList from './components/StudentList/StudentList';
-
-
+import ManageSchools from './components/ListSchool/managementSchool';
+//no khong phai error 
 function App() {
   return (
     <Router>
@@ -124,7 +123,7 @@ function App() {
 
         {/* Sinh vien */}
         <Route path='/school' element = {<SearchSchool />}/>
-
+        <Route path='/manageSchools' element = {<ManageSchools/>}/>
 
         <Route path='*' element={<NotFound/>}/>
       </Routes>
