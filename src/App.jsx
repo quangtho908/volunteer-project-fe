@@ -52,8 +52,12 @@ import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
 import StudentList from './components/StudentList/StudentList';
-import ManageSchools from './components/ListSchool/managementSchool';
-//no khong phai error 
+
+import ListProjectSV from './components/ListProject/ListProjectSV';
+import ManageSchools from './components/ListSchool/ManagementSchool';
+
+
+
 function App() {
   return (
     <Router>
@@ -77,7 +81,7 @@ function App() {
 
         </Route>
         <Route path='/login' element={<SignInForm />} />
-        <Route path='/' element={<Home />} />
+        {/* <Route path='/' element={<Home />} /> */}
         <Route path='/blog' element={<Blog />} />
         <Route path='/blog/:id' element={<BlogDetails />} />
         <Route path='/contact' element={<Contact />} />
@@ -88,7 +92,7 @@ function App() {
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
-        <Route path='/campaignDetail' element={<CompaignDetail/>} />
+        <Route path='/campaignDetail/:id' element={<CompaignDetail/>} />
 
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
@@ -112,9 +116,10 @@ function App() {
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
 
-        <Route path='/listProject' element={<ListProject />} />
+        <Route path='/listProjectAdmin' element={<ListProject />} />
 
         <Route path='/choseRole' element={<Choserole />} />
+        <Route path='/' element={<Choserole />} /> 
 
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
 
@@ -123,6 +128,10 @@ function App() {
 
         {/* Sinh vien */}
         <Route path='/school' element = {<SearchSchool />}/>
+
+        <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
+
+
         <Route path='/manageSchools' element = {<ManageSchools/>}/>
 
         <Route path='*' element={<NotFound/>}/>

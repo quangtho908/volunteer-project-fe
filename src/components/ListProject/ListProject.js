@@ -19,9 +19,6 @@ import ProjectSidebar from './ProjectSidebar';
 
 const ListProject = () => {
  
-
-
-
   return (
     <div>
             <Header />
