@@ -113,7 +113,7 @@ function App() {
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
 
-        <Route path='/listProject' element={<ListProject />} />
+        <Route path='/listProjectAdmin' element={<ListProject />} />
 
         <Route path='/choseRole' element={<Choserole />} />
 
@@ -124,6 +124,7 @@ function App() {
 
         {/* Sinh vien */}
         <Route path='/school' element = {<SearchSchool />}/>
+
 
 
         <Route path='*' element={<NotFound/>}/>
