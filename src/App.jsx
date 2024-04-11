@@ -42,17 +42,27 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Dashboard from './components/Doctor/Dashboard/Dashboard';
 import PrivateOutlet from './components/Shared/PrivateOutlet';
 import NotFound from './components/UI/NotFound';
-
 import Choserole from './components/ChoseRole/ChoseRole';
 
 import ListProject from './components/ListProject/ListProject';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import ListCampaign from './components/Service/ListCampaign';
-import ListSchool from './components/ListSchool/SearchSchool';
+// import ListSchool from './components/ListSchool/SearchSchool';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
-import StudentList from './components/StudentList/StudentList';
+import CreateCampaigns from './components/Campaign/CreateCampaigns';
+
+// import Choserole from './components/ChoseRole/ChoseRole';
+
+// import ListProject from './components/ListProject/ListProject';
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import './App.css'
+// import ListCampaign from './components/Service/ListCampaign';
+// import ListSchool from './components/ListSchool/SearchSchool';
+// import SearchSchool from './components/ListSchool/SearchSchool';
+// import CompaignDetail from './components/CompaignDetail/CompainDetail';
+ import StudentList from './components/StudentList/StudentList';
 
 
 function App() {
@@ -75,6 +85,7 @@ function App() {
           <Route path='/dashboard/profile-setting' element={<ProfileSetting />} />
           <Route path='/dashboard/favourite' element={<PatientFavouriteDoctor />} />
           <Route path='/dashboard/invoices' element={<DoctorInvoice />} />
+
         </Route>
         <Route path='/login' element={<SignInForm />} />
         <Route path='/' element={<Home />} />
@@ -96,6 +107,11 @@ function App() {
         <Route path='/booking/:doctorId' element={<DoctorBooking />} />
         <Route path='/booking/success/:id' element={<BookingSuccess />} />
         <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
+
+        <Route path='/createCampaigns' element={<CreateCampaigns />} />
+
+
+
 
         {/* Admin Dashboard  */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
