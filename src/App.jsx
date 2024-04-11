@@ -52,7 +52,7 @@ import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
 import StudentList from './components/StudentList/StudentList';
-import ManageSchools from './components/ListSchool/managementSchool';
+import ManageSchools from './components/ListSchool/ManagementSchool';
 //no khong phai error 
 function App() {
   return (
