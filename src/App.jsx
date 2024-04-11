@@ -52,6 +52,7 @@ import ListCampaign from './components/Service/ListCampaign';
 import ListSchool from './components/ListSchool/SearchSchool';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
+import StudentList from './components/StudentList/StudentList';
 
 
 function App() {
@@ -111,6 +112,8 @@ function App() {
         <Route path='/choseRole' element={<Choserole />} />
 
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
+
+        <Route path='/detail/studentList/:id' element={<StudentList />} />
 
 
         {/* Sinh vien */}
