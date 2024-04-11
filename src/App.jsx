@@ -48,13 +48,14 @@ import ListProject from './components/ListProject/ListProject';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
 import ListCampaign from './components/Service/ListCampaign';
-// import ListSchool from './components/ListSchool/SearchSchool';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
 import StudentList from './components/StudentList/StudentList';
+
 import ListProjectSV from './components/ListProject/ListProjectSV';
 import ManageSchools from './components/ListSchool/ManagementSchool';
+
 
 
 function App() {
@@ -127,7 +128,10 @@ function App() {
 
         {/* Sinh vien */}
         <Route path='/school' element = {<SearchSchool />}/>
+
         <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
+
+
         <Route path='/manageSchools' element = {<ManageSchools/>}/>
 
         <Route path='*' element={<NotFound/>}/>

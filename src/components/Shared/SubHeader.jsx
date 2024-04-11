@@ -32,6 +32,9 @@ const SubHeader = ({title, subtitle}) => {
                         <div className='mb-4 section-title text-center'>
                             <h2 className='text-white text-uppercase'>{title}</h2>
                             <p className='text-white m-0'>{subtitle && subtitle}</p>
+                            {/* {onAddSchoolClick && 
+                                <button onClick={onAddSchoolClick} className="btn btn-primary mt-3">{buttonName}</button>
+                            } */}
                         </div>
                     </div>
                 </div>
