@@ -40,16 +40,7 @@ const ProjectSidebar = ({ }) => {
 
       <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
         <div className="mb-3">
-          <button onClick={() => {
-            window.location.href= '/manageSchools'
-          } } 
-          style={{marginLeft: '50px'}}
-          className="btn btn-primary mt-3"> Quản lý Trường</button>
-          <button onClick={() => {
-            window.location.href= '/createCampaigns'
-          } } 
-          style={{marginLeft: '50px'}}
-          className="btn btn-primary mt-3"> Tạo chiến dịch</button>
+          
         </div>
 
         {/* <div className='mb-3'>
