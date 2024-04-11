@@ -52,17 +52,7 @@ import ListCampaign from './components/Service/ListCampaign';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
-
-// import Choserole from './components/ChoseRole/ChoseRole';
-
-// import ListProject from './components/ListProject/ListProject';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import './App.css'
-// import ListCampaign from './components/Service/ListCampaign';
-// import ListSchool from './components/ListSchool/SearchSchool';
-// import SearchSchool from './components/ListSchool/SearchSchool';
-// import CompaignDetail from './components/CompaignDetail/CompainDetail';
- import StudentList from './components/StudentList/StudentList';
+import StudentList from './components/StudentList/StudentList';
 
 
 function App() {
