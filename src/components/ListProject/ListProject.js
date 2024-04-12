@@ -50,6 +50,11 @@ const ListProject = ({ }) => {
     }
   }
 
+  const updateStrategiesList = () => {
+    // Cập nhật danh sách chiến dịch sau khi xóa thành công
+    handleGetStrategies();
+};
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = strategies.slice(indexOfFirstItem, indexOfLastItem);
@@ -134,6 +139,7 @@ const ListProject = ({ }) => {
                   <ProjectContent
                     key={strategiesItem.id}
                     strategiesItem={strategiesItem}
+                    updateStrategiesList={updateStrategiesList}
                   />
                 ))}
 
