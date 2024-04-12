@@ -35,12 +35,19 @@ const Header = () => {
     useEffect(() => { authChecked && setIsLogged(true) }, [authChecked]);
 
     const hanldeSignOut = () => {
-        loggedOut();
         message.success("Successfully Logged Out")
-        setIsLogged(false)
-        navigate('/')
+        setIsLogged(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        window.location.href = '/login';
     }
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLogged(true);
+        }
+    }, [])
 
     const content = (
         <div className='nav-popover'>
@@ -56,8 +63,8 @@ const Header = () => {
     );
     return (
         <>
-            {/* <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">
-                <TopHeader />
+            <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">
+                {/* <TopHeader /> */}
             </div>
             <header id="header" className={`fixed-top ${!show && "stickyHeader"}`}>
                 <div className="container d-flex align-items-center">
@@ -65,11 +72,18 @@ const Header = () => {
                     <Link to={'/'} className="logo me-auto">
                         <img src={img} alt="" className="img-fluid" />
                     </Link>
-                    <HeaderNav isLoggedIn={isLoggedIn} data={data}
-                        avatar={avatar} content={content} open={open} setOpen={setOpen} />
-                    <Link to={'/appointment'} className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
+                    {/* <HeaderNav isLoggedIn={isLoggedIn} data={data}
+                        avatar={avatar} content={content} open={open} setOpen={setOpen} /> */}
+                    { isLoggedIn &&
+                        <Link className="appointment-btn scrollto">
+                            <span onClick={() => {
+                                hanldeSignOut();
+                            }} className="d-none d-md-inline">Log out</span></Link>
+
+                    }
+
                 </div>
-            </header> */}
+            </header>
         </>
     )
 }
