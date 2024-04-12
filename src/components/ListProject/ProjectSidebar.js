@@ -39,19 +39,27 @@ const ProjectSidebar = ({ }) => {
     <div className="col-md-12 col-lg-4 col-xl-3">
 
       <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
-        <h5 className='text-center mb-3' style={{ color: '#05335c' }}>Doctor Filter</h5>
         <div className="mb-3">
-          <Search placeholder="Search..." onSearch=".." enterButton allowClear />
+          <button onClick={() => {
+            window.location.href= '/manageSchools'
+          } } 
+          style={{marginLeft: '50px'}}
+          className="btn btn-primary mt-3"> Quản lý Trường</button>
+          <button onClick={() => {
+            window.location.href= '/createCampaigns'
+          } } 
+          style={{marginLeft: '50px'}}
+          className="btn btn-primary mt-3"> Tạo chiến dịch</button>
         </div>
 
-        <div className='mb-3'>
+        {/* <div className='mb-3'>
           <h6 style={{ color: '#05335c' }}>Date Range</h6>
           <DatePicker
             style={{ width: "100%" }}
             format="YYYY-MM-DD HH:mm:ss"
             // onChange={handleDateChange}
           />
-        </div>
+        </div> */}
 
         <div className="md-3" >
         <h6 style={{ color: '#05335c' }}>Mùa hè xanh</h6>

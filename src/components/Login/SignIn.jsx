@@ -8,6 +8,9 @@ import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
 import { message } from 'antd';
 import { useMessageEffect } from '../../utils/messageSideEffect';
+import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+
 
 const SignIn = ({ handleResponse }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -18,7 +21,8 @@ const SignIn = ({ handleResponse }) => {
     const [userLogin, { isError, isLoading, isSuccess, error }] = useUserLoginMutation();
     const [forgotEmail, setForgotEmail] = useState('');
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
-
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     setTimeout(() => {
         setShow(false);
     }, 10000);
@@ -49,60 +53,109 @@ const SignIn = ({ handleResponse }) => {
         setShowForgotPassword(!showForgotPassword);
     }
 
+    const decodeToken = (token) => {
+        try {
+            const decodedToken = jwtDecode(token);
+            return decodedToken;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value);
+    }
+    const handlePassWordChange = (e) => {
+        setPassword(e.target.value);
+    }
+
+
+    const handleLogin = async (email, password) => {
+        try {
+            const response = await fetch('https://project-software-z6dy.onrender.com/auth/login', {
+                method: 'POST',
+                headers: {
+                    'accept': '*/*',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+            });
+
+            const data = await response.json();
+            
+            // Handle the response data here
+            if (response.ok) {
+                const token = data?.data?.token;
+                // Decode the token here
+                const decodedToken = decodeToken(token);
+                // Access the user information from the decoded token
+                const userId = decodedToken?.id;
+                const userEmail = decodedToken?.email;
+                const userRole = decodedToken?.role;
+                const timestamp = decodedToken?.timestamp;
+                // Do something with the user information
+                
+                console.log("User ID:", userId);
+                console.log("User Email:", userEmail);
+                console.log("User Role:", userRole);
+                console.log("Timestamp:", timestamp);
+
+                if (userRole == 0) {
+                    window.location.href = '/listProjectAdmin';
+                } else if (userRole == 1) {
+                    window.location.href = '/list-campaign';
+                }
+
+
+            } else {
+                // Handle the error response here
+                console.error(data?.message);
+                
+            }
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+           
+        }
+    }
+
     return (
         <>
             {
                 showForgotPassword
                     ?
                     <form className="sign-in-form" onSubmit={onHandleForgotPassword}>
-                        <h2 className="title">Forgot Password</h2>
-                        <div>To Forgot Your Password Please Enter your email</div>
-                        <div className="input-field">
-                            <span className="fIcon"><FaEnvelope /></span>
-                            <input value={forgotEmail !== undefined && forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} placeholder="Enter Your Email" type="email" required />
-                        </div>
-                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Stil Remember Password ?</div>
-                        <button className="iBtn" type="submit" value="sign In" >
-                            {resetIsLoading ? <Spinner animation="border" variant="info" /> : "Submit"}
-                        </button>
+
                     </form>
                     :
-                    <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
-                        <Toast show={show} onClose={() => setShow(!show)} className="signInToast">
-                            <Toast.Header>
-                                <strong className="mr-auto">Demo credential</strong>
-                            </Toast.Header>
-                            <Toast.Body>Use this account to sign in as a doctor <br />
-                                <hr />
-                                <div className='bg-dark text-white p-2 px-3 rounded'>
-                                    email : doctor@gmail.com <br />
-                                    password : 123456 <br />
-                                </div>
-                                <hr />
-                                <div className='bg-primary p-2 rounded text-white'>
-                                    Please do not abuse the facility
-                                </div>
-                            </Toast.Body>
-                        </Toast>
+                    <><form className="sign-in-form">
                         <h2 className="title">Sign in</h2>
                         <div className="input-field">
                             <span className="fIcon"><FaEnvelope /></span>
-                            <input {...register("email", { required: true })} placeholder="Enter Your Email" type="email" />
+                            <input onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email" type="email" />
                         </div>
                         {errors.email && <span className="text-danger">This field is required</span>}
                         <div className="input-field">
                             <span className="fIcon"><FaLock /></span>
-                            <input {...register("password", { required: true })} type="password" placeholder="Enter Your Password" />
+                            <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" />
                         </div>
                         {errors.password && <span className="text-danger">This field is required</span>}
                         {infoError && <p className="text-danger">{infoError}</p>}
-                        <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Forgot Password ?</div>
-                        <button className="iBtn" type="submit" value="sign In" >
+                        {/* <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Forgot Password ?</div> */}
+                        {/* <button className="iBtn" value="sign In" onClick={() => handleLogin(email, password)}>
+                            {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
+                        </button> */}
+                        {/* <p className="social-text">Or Sign in with social platforms</p> */}
+                        {/* <SocialSignUp handleResponse={handleResponse} />  */}
+                    </form>
+                        <button style={{marginLeft: '250px'}} className="iBtn" value="sign In" onClick={() => handleLogin(email, password)}>
                             {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
                         </button>
-                        <p className="social-text">Or Sign in with social platforms</p>
-                        <SocialSignUp handleResponse={handleResponse} />
-                    </form>
+                    </>
+
             }
         </>
     );

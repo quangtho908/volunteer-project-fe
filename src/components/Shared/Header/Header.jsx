@@ -56,7 +56,7 @@ const Header = () => {
     );
     return (
         <>
-            <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">
+            {/* <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">
                 <TopHeader />
             </div>
             <header id="header" className={`fixed-top ${!show && "stickyHeader"}`}>
@@ -69,7 +69,7 @@ const Header = () => {
                         avatar={avatar} content={content} open={open} setOpen={setOpen} />
                     <Link to={'/appointment'} className="appointment-btn scrollto"><span className="d-none d-md-inline">Make an</span> Appointment</Link>
                 </div>
-            </header>
+            </header> */}
         </>
     )
 }
