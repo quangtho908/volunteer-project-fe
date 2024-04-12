@@ -32,15 +32,13 @@ const CompaignDetail = () => {
     };
 
     const { register, handleSubmit, reset } = useForm({});
-    // const [detailCampaigns, setDetailCampaigns] = useState({});
-    const [filteredStrategy, setFilteredStrategy] = useState([]);
+    const [detailCampaigns, setDetailCampaigns] = useState({});
+    const [filteredStrategy, setFilteredStrategy] = useState({});
 
     const [fullName, setFullName] = useState('');
     const [mssv, setMssv] = useState('');
     const [email, setEmail] = useState('');
     const [skills, setSkills] = useState('');
-    
-
 
     const { id } = useParams();
 
@@ -50,7 +48,7 @@ const CompaignDetail = () => {
 
     const handleCompaignDetail = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies/`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
@@ -65,7 +63,7 @@ const CompaignDetail = () => {
             if (response.ok) {
                 console.log('ok')
                 console.log(data.data)
-                // setDetailCampaigns(data.data)
+                setDetailCampaigns(data.data)
                 setFilteredStrategy(data.data.find(strategy => strategy.id === parseInt(id)))
 
 

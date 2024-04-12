@@ -63,7 +63,6 @@ const role = JSON.parse(localStorage.getItem('role'));
           <div className="row">
 
             <div className="col-md-12 col-lg-4 col-xl-3">
-
               <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
                 <div className="mb-3">
                   <button onClick={() => {
@@ -117,7 +116,7 @@ const role = JSON.parse(localStorage.getItem('role'));
             </div>
             <div className="col-md-12 col-lg-8 col-xl-9">
               {/* {content} */}
-              <div className='text-center mt-5 mb-5'>
+              <div className='text-center mb-5'>
                 {/* <Pagination
                                     showSizeChanger
                                     onShowSizeChange={onShowSizeChange}
