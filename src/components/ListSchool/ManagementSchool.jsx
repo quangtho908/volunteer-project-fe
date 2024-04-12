@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import { useDebounced } from '../../utils/hooks/useDebounced';
 import { Empty, Modal } from 'antd';
@@ -17,72 +17,141 @@ const ManageSchools = () => {
     const [specialist, setSpecialist] = useState("");
     const [priceRange, setPriceRange] = useState({});
     const [selectedSchoolId, setSelectedSchoolId] = useState(null);
-
+    const [univercity, setUniversity] = useState([]);
+    const [name, setName] = useState('');
+    const [image, setImage] = useState('');
+    const [code, setCode] = useState('');
     // Đặt giá trị mặc định cho isLoading và isError
     const isLoading = false;
     const isError = false;
+    const token = JSON.parse(localStorage.getItem('token'));
 
-    const [mockSchoolsData, setMockSchoolsData] = useState([
-        { id: 1, name: "Universities 1", specialty: "Specialty 1", gender: "Male" },
-        { id: 2, name: "Universities 2", specialty: "Specialty 2", gender: "Female" },
-        { id: 3, name: "Universities 3", specialty: "Specialty 1", gender: "Male" },
-        { id: 4, name: "Universities 4", specialty: "Specialty 2", gender: "Female" },
-        { id: 5, name: "Universities 5", specialty: "Specialty 1", gender: "Male" },
-        { id: 6, name: "Universities 6", specialty: "Specialty 2", gender: "Female" },
-        { id: 7, name: "Universities 7", specialty: "Specialty 1", gender: "Male" },
-        { id: 8, name: "Universities 8", specialty: "Specialty 2", gender: "Female" },
-        { id: 9, name: "Universities 9", specialty: "Specialty 1", gender: "Male" },
-        { id: 10, name: "Universities 10", specialty: "Specialty 2", gender: "Female" },
-        { id: 11, name: "Universities 11", specialty: "Specialty 1", gender: "Male" },
-        { id: 12, name: "Universities 12", specialty: "Specialty 2", gender: "Female" },
-        { id: 13, name: "Universities 13", specialty: "Specialty 1", gender: "Male" },
-        { id: 14, name: "Universities 14", specialty: "Specialty 2", gender: "Female" },
-        { id: 15, name: "Universities 15", specialty: "Specialty 1", gender: "Male" },
-        { id: 16, name: "Universities 16", specialty: "Specialty 2", gender: "Female" },
-    ]);
 
     // Mock meta data
-    const mockMeta = { total: mockSchoolsData.length };
+    const mockMeta = { total: univercity.length };
+    const handleGetListUniversities = async (email, password) => {
+        try {
+            const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
+                method: 'GET'
+            });
 
-    const handleDeleteSchool = (id) => {
-        setSelectedSchoolId(id);
-        setDeleteConfirmationVisible(true); // Thiết lập giá trị của deleteConfirmationVisible thành true
-    };
-    const handleAddSchool = (data) => {
-        // Lấy dữ liệu từ form và thêm vào mockSchoolsData
-        const newSchool = {
-            id: mockSchoolsData.length + 1, // Tạo id mới cho trường mới
-            name: data.name, // Tên trường
-            specialty: data.specialty, // Chuyên ngành
-            gender: data.gender // Giới tính
-        };
+            const data = await response.json();
+            
+            // Handle the response data here
+            if (response) {
+                console.log('ok')
+                console.log(data)
+                setUniversity(data.data)
+            } else {
+                // Handle the error response here
+                console.error(data?.message);
+                
+            }
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+           
+        }
+    }
+
+    useEffect(() => {
+        handleGetListUniversities();
+    }, [])
+
+    const handleDeleteSchool = async (schoolId) => {
+        try {
+            // Hiển thị modal xác nhận xóa trước khi gửi yêu cầu xóa trường đến API
+            setDeleteConfirmationVisible(true);
+            setSelectedSchoolId(schoolId);
+            // Tiếp tục với phần xử lý xóa trường khi người dùng xác nhận
+            // Gửi yêu cầu xóa trường đến API
+            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${selectedSchoolId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                },
+            });
     
-        // Thêm trường mới vào mockSchoolsData
-        setMockSchoolsData([...mockSchoolsData, newSchool]);
+            const responseData = await response.json();
     
-        // Đóng modal sau khi thêm thành công
-        setShowSignUpPopup(false);
+            if (response.ok) {
+                // Xử lý khi xóa thành công
+                console.log('Xóa trường thành công:', responseData);
+                // Cập nhật danh sách trường sau khi xóa thành công
+                const updatedUniversities = univercity.filter(university => university.id !== selectedSchoolId);
+                setUniversity(updatedUniversities);
+            } else {
+                // Xử lý khi có lỗi từ phía server
+                console.error('Lỗi khi xóa trường:', responseData.message);
+            }
+        }  catch (error) {
+            // Xử lý lỗi nếu có
+            console.error('Error deleting school:', error);
+            // Đặt giá trị của selectedSchoolId lại về giá trị mặc định
+            setSelectedSchoolId(null);
+        }
     };
+    
+    const handleAddSchool = async () => {
+        try {
+            const response = await fetch('https://project-software-z6dy.onrender.com/university', {
+                method: 'POST',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token  ,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    code: code,
+                    image: image,
+                })
+            });
+    
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                // Xử lý khi thêm thành công
+                console.log('Thêm trường mới thành công:', responseData);
+                // Trích xuất dữ liệu từ phản hồi và cập nhật danh sách trường
+                const newUniversity = {
+                    id: responseData.data.id,
+                    name: responseData.data.name,
+                    image: responseData.data.image,
+                };
+                setUniversity([...univercity, newUniversity]);
+                // Đóng modal sau khi thêm thành công
+                setShowSignUpPopup(false);
+            } else {
+                // Xử lý khi có lỗi từ phía server
+                console.error('Lỗi khi thêm trường mới:', responseData.message);
+            }
+        } catch (error) {
+            // Xử lý khi có lỗi trong quá trình thêm trường mới
+            console.error('Lỗi khi thêm trường mới:', error);
+        }
+    };
+    
     
     const handleConfirmDelete = () => {
         // Logic to delete school with the given id
-        const updatedSchools = mockSchoolsData.filter(school => school.id !== selectedSchoolId);
-        setMockSchoolsData(updatedSchools);
+        const updatedSchools = univercity.filter(school => school.id !== selectedSchoolId);
+        setUniversity(updatedSchools);
         setSelectedSchoolId(null); // Clear selected school id
         setDeleteConfirmationVisible(false); // Close delete confirmation modal
     };
 
-    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+     const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
 
     //what to render
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
-    if (!isLoading && !isError && mockSchoolsData.length === 0) content = <div><Empty /></div>;
-    if (!isLoading && !isError && mockSchoolsData.length > 0) content =
+    if (!isLoading && !isError && univercity.length === 0) content = <div><Empty /></div>;
+    if (!isLoading && !isError && univercity.length > 0) content =
     
 <>
-{mockSchoolsData && mockSchoolsData?.map((item, id) => (
+{univercity?.map((item, id) => (
     <div key={item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
         <div className='d-flex p-3 justify-content-between'>
             <div className='d-flex gap-3'>
@@ -94,7 +163,7 @@ const ManageSchools = () => {
                     <p className="doc-department m-0">University</p>
                 </div>
             </div>
-            <button onClick={() => handleDeleteSchool(item.id)} className="btn btn-danger">Xóa</button>
+            <button  onClick={() => handleDeleteSchool(item.id)} className="btn btn-danger">Xóa</button>
         </div>
     </div>
 ))}
@@ -120,7 +189,7 @@ const handleSignUpPopupClose = () => {
     return (
         <div>
             <Header />
-          <SubHeader title='Universities' subtitle='Chọn trường bạn đang theo học.'/>
+          <SubHeader title='Universities' subtitle='Quản lý các trường .'/>
             <div className="container" style={{ marginBottom: 80, marginTop: 50, marginLeft: 200, marginRight: 200}}>
                 <div className="container-fluid">
                 <div className='mb-4 section-title text-center'style={{marginLeft:-250}}>
@@ -154,24 +223,19 @@ const handleSignUpPopupClose = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-2 card-label">
                                             <label>Tên Trường</label>
-                                            <input required {...register("firstName")} className="form-control"/>
+                                            {/* <input required {...register("Tên trường")} className="form-control"/> */}
+                                            <input className="form-control" onChange={(e) => setName(e.target.value)} placeholder='Tên trường'/>
                                         </div>
                                     </div>
 
                                     <div className="col-md-6">
                                         <div className="form-group mb-2 card-label">
                                             <label>Mã trường</label>
-                                            <input required {...register("firstName")} className="form-control"/>
+                                             <input className="form-control" onChange={(e) => setCode(e.target.value)} placeholder='Mã trường'/>
                                         </div>
                                     </div>
 
-                                    <div className="col-md-12">
-                                        <div className="form-group mb-2 card-label">
-                                            <label>Phân hiệu khu vực</label>
-                                            <input required {...register("firstName")}  className="form-control" />
-                                        </div>
-                                    </div>
-                                    {/* Thêm trường tải hình ảnh */}
+    
                                     <div className="col-md-12">
                                         <div className="form-group mb-2 card-label">
                                             <label>Logo trường</label>
@@ -181,10 +245,11 @@ const handleSignUpPopupClose = () => {
    
                                         </div>
                                     </div>
-                                    <div className="text-center mt-3 mb-5">
-                                        <button disabled={isLoading} type='submit' className="appointment-btn">Thêm</button>
-                                    </div>
+                                   
                                 </form>
+                                <div className="text-center mt-3 mb-5">
+                                        <button disabled={isLoading} className="appointment-btn" onClick={() => {handleAddSchool()}}>Thêm</button>
+                                    </div>
                         </div>
                     </div>
                 </div>

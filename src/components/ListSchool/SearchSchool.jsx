@@ -50,7 +50,7 @@ const SearchSchool = () => {
     ];
     const [univercity, setUniversity] = useState([]);
     // Mock meta data
-    const mockMeta = { total: mockSchoolsData.length };
+    const mockMeta = { total: univercity.length };
     //  // Render danh sách trường đại học
     //  const startIndex = (page - 1) * size;
     //  const endIndex = startIndex + size;
@@ -130,7 +130,7 @@ const SearchSchool = () => {
                                 <Pagination
                                     showSizeChanger
                                     onShowSizeChange={onShowSizeChange}
-                                    total={mockMeta.total}
+                                    total={univercity.length}
                                     pageSize={size}
                                     // current={page}
                                     // pageSize={10}
