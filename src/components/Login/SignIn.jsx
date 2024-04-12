@@ -103,9 +103,9 @@ const SignIn = ({ handleResponse }) => {
                 console.log("User Role:", userRole);
                 console.log("Timestamp:", timestamp);
 
-                if (userRole == 0) {
+                if (userRole === 0) {
                     window.location.href = '/listProjectAdmin';
-                } else if (userRole == 1) {
+                } else if (userRole === 1) {
                     window.location.href = '/list-campaign';
                 }
 
