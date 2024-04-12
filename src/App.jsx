@@ -29,8 +29,7 @@ import Blog from './components/Blog/Blog';
 import BlogDetails from './components/Blog/BlogDetails';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
-import CampaignDetails  from "./components/CampaignDetails/CampaignDetails";
-import Service from './components/Service/ListCampaign';
+import CampaignDetails  from "./components/CampaignDetailsUniver/CampaignDetails";
 import AppointmentPage from './components/Appointment/AppointmentPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
 import Treatment from './components/Doctor/Treatment/Treatment';
@@ -47,7 +46,7 @@ import Choserole from './components/ChoseRole/ChoseRole';
 import ListProject from './components/ListProject/ListProject';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
-import ListCampaign from './components/Service/ListCampaign';
+import ListCampaign from './components/ListCampain/ListCampaign';
 import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
@@ -86,7 +85,6 @@ function App() {
         <Route path='/blog/:id' element={<BlogDetails />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
-        <Route path='/service' element={<Service />} />
         <Route path='/list-campaign' element={<ListCampaign />} />
         <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
         <Route path='/appointment' element={<AppointmentPage />} />

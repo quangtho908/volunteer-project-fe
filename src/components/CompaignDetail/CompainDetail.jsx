@@ -127,7 +127,7 @@ const CompaignDetail = () => {
 
                                     <div className="col-md-12">
                                         <div className="form-group mb-2 card-label">
-                                            <label>Email</label>
+                                             <label>Email</label>
                                             <input required {...register("email")} type='email' className="form-control" />
                                         </div>
                                     </div>
