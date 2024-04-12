@@ -55,6 +55,7 @@ const SearchSchool = () => {
     //  const startIndex = (page - 1) * size;
     //  const endIndex = startIndex + size;
     //  const displayedSchools = mockSchoolsData.slice(startIndex, endIndex);
+    
     const handleGetListUniversities = async (email, password) => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {

@@ -26,6 +26,7 @@ const CampaignDetails = () => {
         fetchCampaign();
     }, [id]);
 
+    const token = JSON.parse(localStorage.getItem('token'));
     
     const handleApprove = async () => {
         try {
@@ -34,7 +35,7 @@ const CampaignDetails = () => {
                 method: 'PUT',
                 headers: {
                     'accept' :'*/*',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI5MDc3MTA3MzksImlhdCI6MTcxMjkwNzcxMH0.JPXpdRhTw0kAyUACg7gFXaXVToTru9tVYoRAcviKgsA',
+                    'Authorization':'Bearer ' + token,
                     'Content-Type': 'application/json'
                 },
             });
