@@ -9,8 +9,36 @@ import { truncate } from '../../utils/truncate';
 import { FaClock } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 
-const ProjectContent = ({ strategiesItem }) => {
+const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
     const [imageError, setImageError] = useState(false);
+    const token = JSON.parse(localStorage.getItem('token'));
+
+    const handleDeleteStrategy = async (strategyId) => {
+        try {
+          const response = await fetch(`https://project-software-z6dy.onrender.com/strategy/${strategiesItem.id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + token
+            }
+          });
+      
+          const data = await response.json();
+      
+         
+          if (response.ok) {
+          
+            console.log('Chiến dịch đã được xóa thành công');
+          
+            updateStrategiesList();
+          } else {
+           
+            console.error(data?.message);
+          }
+        } catch (error) {
+         
+          console.error(error);
+        }
+      };
 
 
     // const services = data?.services?.split(',')
@@ -69,7 +97,7 @@ const ProjectContent = ({ strategiesItem }) => {
                             <Link to={`/detail/studentList/${strategiesItem.id}`} className="pro-btn" >   chi tiết   </Link>
                         </div>
                         <div className='clinic-booking-button mt-2'>
-                            <Link to={`/booking/1`} className="apt-btn">Đăng Ký</Link>
+                            <Link onClick={handleDeleteStrategy} className="apt-btn">Đăng Ký</Link>
                         </div>
                     </div>
 
