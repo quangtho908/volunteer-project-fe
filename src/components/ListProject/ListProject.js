@@ -4,7 +4,7 @@
 // import SubHeader from '../../Shared/SubHeader'
 // import SearchSidebar from './SearchSidebar'
 import ProjectContent from './ProjectContent'
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import SearchSidebar from '../Doctor/SearchDoctor/SearchSidebar';
 import SearchContent from '../Doctor/SearchDoctor/SearchContent';
@@ -17,8 +17,38 @@ import SubHeader from '../Shared/SubHeader';
 import ProjectSidebar from './ProjectSidebar';
 
 
-const ListProject = () => {
- 
+const ListProject = ({}) => {
+  const[strategies,setStrategies]=  useState([]);
+  const token = JSON.parse(localStorage.getItem('token'));
+  const handleGetStrategies = async () => {
+    try {
+      const response = await fetch('https://project-software-z6dy.onrender.com/strategies', {
+        method: 'GET',
+        headers: {
+          'accept': '*/*',
+          'Authorization':'Bearer ' + token        
+        },
+      });
+  
+      const data = await response.json();
+  
+      // Handle the response data here
+      if (response.ok) {
+        setStrategies(data.data);
+        console.log(data.data); // Check the fetched data
+      } else {
+        // Handle the error response here
+        console.error(data?.message);
+      }
+    } catch (error) {
+      // Handle any errors here
+      console.error(error);
+    }
+  }
+  
+useEffect(() => {
+  handleGetStrategies();
+},[])
   return (
     <div>
             <Header />
@@ -89,7 +119,13 @@ const ListProject = () => {
                                     total={meta?.total}
                                     pageSize={size}
                                 /> */}
-                                <ProjectContent/>
+                                {strategies.map((strategiesItem) =>(
+                                   <ProjectContent 
+                                   key={strategies.id}
+                                   strategiesItem={strategiesItem}
+                                   />
+                                ))}
+                               
                             </div>
                         </div>
                     </div>
