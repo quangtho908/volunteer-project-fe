@@ -57,7 +57,7 @@ const role = JSON.parse(localStorage.getItem('role'));
   return (
     <div>
       <Header />
-      <SubHeader title='Doctors' subtitle='Lorem ipsum dolor sit amet.' />
+      <SubHeader title='Các chiến dịch' />
       <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
         <div className="container-fluid">
           <div className="row">
@@ -126,7 +126,7 @@ const role = JSON.parse(localStorage.getItem('role'));
                                 /> */}
                                 {strategies.map((strategiesItem) =>(
                                    <ProjectContent 
-                                   key={strategies.id}
+                                   key={strategiesItem.id}
                                    strategiesItem={strategiesItem}
                                    />
                                 ))}
