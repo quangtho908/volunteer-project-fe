@@ -21,6 +21,8 @@ const ManageSchools = () => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [code, setCode] = useState('');
+    const [email, setEmail] = useState('');
+
     // Đặt giá trị mặc định cho isLoading và isError
     const isLoading = false;
     const isError = false;
@@ -36,7 +38,7 @@ const ManageSchools = () => {
             });
 
             const data = await response.json();
-            
+
             // Handle the response data here
             if (response) {
                 console.log('ok')
@@ -45,12 +47,12 @@ const ManageSchools = () => {
             } else {
                 // Handle the error response here
                 console.error(data?.message);
-                
+
             }
         } catch (error) {
             // Handle any errors here
             console.error(error);
-           
+
         }
     }
 
@@ -71,9 +73,9 @@ const ManageSchools = () => {
                     'Authorization': 'Bearer ' + token,
                 },
             });
-    
+
             const responseData = await response.json();
-    
+
             if (response.ok) {
                 // Xử lý khi xóa thành công
                 console.log('Xóa trường thành công:', responseData);
@@ -84,21 +86,21 @@ const ManageSchools = () => {
                 // Xử lý khi có lỗi từ phía server
                 console.error('Lỗi khi xóa trường:', responseData.message);
             }
-        }  catch (error) {
+        } catch (error) {
             // Xử lý lỗi nếu có
             console.error('Error deleting school:', error);
             // Đặt giá trị của selectedSchoolId lại về giá trị mặc định
             setSelectedSchoolId(null);
         }
     };
-    
+
     const handleAddSchool = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/university', {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',
-                    'Authorization': 'Bearer ' + token  ,
+                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -107,9 +109,10 @@ const ManageSchools = () => {
                     image: image,
                 })
             });
-    
+
+
             const responseData = await response.json();
-    
+
             if (response.ok) {
                 // Xử lý khi thêm thành công
                 console.log('Thêm trường mới thành công:', responseData);
@@ -126,13 +129,33 @@ const ManageSchools = () => {
                 // Xử lý khi có lỗi từ phía server
                 console.error('Lỗi khi thêm trường mới:', responseData.message);
             }
+            console.log(responseData.data.id)
+            
+            const response2 = await fetch('https://project-software-z6dy.onrender.com/users/university', {
+                method: 'POST',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    fullName: name,
+                    universityId: responseData.data.id,
+                })
+            });
+            const responseData2 = await response2.json();
+
+            if (response2.ok) {
+                console.log('Thêm trường mới thành công:', responseData2);
+            }
         } catch (error) {
             // Xử lý khi có lỗi trong quá trình thêm trường mới
             console.error('Lỗi khi thêm trường mới:', error);
         }
     };
-    
-    
+
+
     const handleConfirmDelete = () => {
         // Logic to delete school with the given id
         const updatedSchools = univercity.filter(school => school.id !== selectedSchoolId);
@@ -141,7 +164,7 @@ const ManageSchools = () => {
         setDeleteConfirmationVisible(false); // Close delete confirmation modal
     };
 
-     const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+    const [deleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
 
     //what to render
     let content = null;
@@ -149,34 +172,34 @@ const ManageSchools = () => {
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
     if (!isLoading && !isError && univercity.length === 0) content = <div><Empty /></div>;
     if (!isLoading && !isError && univercity.length > 0) content =
-    
-<>
-{univercity?.map((item, id) => (
-    <div key={item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
-        <div className='d-flex p-3 justify-content-between'>
-            <div className='d-flex gap-3'>
-                <div className='doc-img-fluid d-flex align-items-center'>
-                    <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
-                </div>
-                <div className="doc-info">
-                    <h5 className='mb-0'>{item.name}</h5>
-                    <p className="doc-department m-0">University</p>
-                </div>
-            </div>
-            <button  onClick={() => handleDeleteSchool(item.id)} className="btn btn-danger">Xóa</button>
-        </div>
-    </div>
-))}
-</>
 
-const handleSignUpButtonClick = () => {
-    setShowSignUpPopup(true); 
-};
+        <>
+            {univercity?.map((item, id) => (
+                <div key={item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
+                    <div className='d-flex p-3 justify-content-between'>
+                        <div className='d-flex gap-3'>
+                            <div className='doc-img-fluid d-flex align-items-center'>
+                                <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
+                            </div>
+                            <div className="doc-info">
+                                <h5 className='mb-0'>{item.name}</h5>
+                                <p className="doc-department m-0">University</p>
+                            </div>
+                        </div>
+                        <button onClick={() => handleDeleteSchool(item.id)} className="btn btn-danger">Xóa</button>
+                    </div>
+                </div>
+            ))}
+        </>
 
-const [showSignUpPopup, setShowSignUpPopup] = useState(false); 
-const handleSignUpPopupClose = () => {
-    setShowSignUpPopup(false); 
-};
+    const handleSignUpButtonClick = () => {
+        setShowSignUpPopup(true);
+    };
+
+    const [showSignUpPopup, setShowSignUpPopup] = useState(false);
+    const handleSignUpPopupClose = () => {
+        setShowSignUpPopup(false);
+    };
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
     };
@@ -185,16 +208,16 @@ const handleSignUpPopupClose = () => {
         setPage(current);
         setSize(pageSize);
     };
- const { register, handleSubmit, reset } = useForm({});
+    const { register, handleSubmit, reset } = useForm({});
     return (
         <div>
             <Header />
-          <SubHeader title='Universities' subtitle='Quản lý các trường .'/>
-            <div className="container" style={{ marginBottom: 80, marginTop: 50, marginLeft: 200, marginRight: 200}}>
+            <SubHeader title='Universities' subtitle='Quản lý các trường .' />
+            <div className="container" style={{ marginBottom: 80, marginTop: 50, marginLeft: 200, marginRight: 200 }}>
                 <div className="container-fluid">
-                <div className='mb-4 section-title text-center'style={{marginLeft:-250}}>
-                                <button onClick={handleSignUpButtonClick} className="btn btn-primary mt-3" >Thêm trường mới</button>
-                            </div>
+                    <div className='mb-4 section-title text-center' style={{ marginLeft: -250 }}>
+                        <button onClick={handleSignUpButtonClick} className="btn btn-primary mt-3" >Thêm trường mới</button>
+                    </div>
                     <div className="row">
                         <div className="col-md-12 col-lg-8 col-xl-9 " >
                             {content}
@@ -219,37 +242,43 @@ const handleSignUpPopupClose = () => {
                 <div className="container" style={{ marginTop: 30, marginBottom: 10 }}>
                     <div className="">
                         <div className="">
-                                <form className="row form-row" onSubmit={handleSubmit(handleAddSchool)}>
-                                    <div className="col-md-6">
-                                        <div className="form-group mb-2 card-label">
-                                            <label>Tên Trường</label>
-                                            {/* <input required {...register("Tên trường")} className="form-control"/> */}
-                                            <input className="form-control" onChange={(e) => setName(e.target.value)} placeholder='Tên trường'/>
-                                        </div>
+                            <form className="row form-row" onSubmit={handleSubmit(handleAddSchool)}>
+                                <div className="col-md-6">
+                                    <div className="form-group mb-2 card-label">
+                                        <label>Tên Trường</label>
+                                        {/* <input required {...register("Tên trường")} className="form-control"/> */}
+                                        <input className="form-control" onChange={(e) => setName(e.target.value)} placeholder='Tên trường' />
                                     </div>
+                                </div>
 
-                                    <div className="col-md-6">
-                                        <div className="form-group mb-2 card-label">
-                                            <label>Mã trường</label>
-                                             <input className="form-control" onChange={(e) => setCode(e.target.value)} placeholder='Mã trường'/>
-                                        </div>
+                                <div className="col-md-6">
+                                    <div className="form-group mb-2 card-label">
+                                        <label>Mã trường</label>
+                                        <input className="form-control" onChange={(e) => setCode(e.target.value)} placeholder='Mã trường' />
                                     </div>
+                                </div>
 
-    
-                                    <div className="col-md-12">
-                                        <div className="form-group mb-2 card-label">
-                                            <label>Logo trường</label>
-                                            <input style={{alignItems:'center',marginTop:5}} type="file" accept="image/*" onChange={(e) => handleImageUpload(e)} className="form-control" />
-                                            {/* <input type="file" accept="image/*" id="fileInput" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e)} className="form-control" />
+
+                                <div className="col-md-12">
+                                    <div className="form-group mb-2 card-label">
+                                        <label>Logo trường</label>
+                                        <input style={{ alignItems: 'center', marginTop: 5 }} type="text" accept="image/*" onChange={(e) => setImage(e.target.value)} className="form-control" />
+                                        {/* <input type="file" accept="image/*" id="fileInput" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e)} className="form-control" />
                                             <button onClick={() => document.getElementById('fileInput').click()} className="btn btn-primary">Chọn tệp</button> */}
-   
-                                        </div>
+
                                     </div>
-                                   
-                                </form>
-                                <div className="text-center mt-3 mb-5">
-                                        <button disabled={isLoading} className="appointment-btn" onClick={() => {handleAddSchool()}}>Thêm</button>
+                                </div>
+                                <div className="col-md-12">
+                                    <div className="form-group mb-2 card-label">
+                                        <label>Email</label>
+                                        <input style={{ alignItems: 'center', marginTop: 5 }} type="text" accept="image/*" onChange={(e) => setEmail(e.target.value)} className="form-control" />
                                     </div>
+                                </div>
+
+                            </form>
+                            <div className="text-center mt-3 mb-5">
+                                <button disabled={isLoading} className="appointment-btn" onClick={() => { handleAddSchool() }}>Thêm</button>
+                            </div>
                         </div>
                     </div>
                 </div>
