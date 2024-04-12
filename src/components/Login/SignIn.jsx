@@ -88,6 +88,8 @@ const SignIn = ({ handleResponse }) => {
             
             // Handle the response data here
             if (response.ok) {
+                console.log(data.data.token);
+                localStorage.setItem("token", JSON.stringify(data.data.token));
                 const token = data?.data?.token;
                 // Decode the token here
                 const decodedToken = decodeToken(token);
@@ -102,6 +104,7 @@ const SignIn = ({ handleResponse }) => {
                 console.log("User Email:", userEmail);
                 console.log("User Role:", userRole);
                 console.log("Timestamp:", timestamp);
+                localStorage.setItem("role", JSON.stringify(userRole));
 
                 if (userRole === 0) {
                     window.location.href = '/listProjectAdmin';

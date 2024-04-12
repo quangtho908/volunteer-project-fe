@@ -1,10 +1,13 @@
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const CreateCampaigns = () => {
+
     const [selectTime, setSelectTime] = useState(null);
     const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
+    const token = JSON.parse(localStorage.getItem('token'));
     const [universities,setUniversity] = useState([]);
     const [name, setName] = useState('');
     const [university, setUniversities] = useState('');
@@ -38,7 +41,7 @@ const CreateCampaigns = () => {
             method: 'GET',
             headers: {
               'accept': '*/*',
-              'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI4ODc4ODE1MTEsImlhdCI6MTcxMjg4Nzg4MX0.LC8YPbX1i_Zi4HSMoZ3pgpoq5iA8RtgxF9B8_lIEKnI'
+              'Authorization':'Bearer ' + token   
             },
           });
       
@@ -107,6 +110,11 @@ const CreateCampaigns = () => {
 
         return () => clearInterval(interval);
     }, [banners.length]);
+
+    const role = JSON.parse(localStorage.getItem('role'));
+    if ((role !== 0)) {
+        return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
+    }
 
     return (
         <div style={{ marginTop: '0', backgroundColor: "#1977cc", height: "fit-content", padding: "10px", textAlign: "center" }}>
