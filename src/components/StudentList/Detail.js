@@ -102,7 +102,7 @@ useEffect(() => {
                         <div className='section-title text-center'>
                             <h2 className='text-uppercase'>{filteredStrategy.name}</h2>
                         </div>
-                        <p className='mt-3'>Thời gian: Từ ngày {filteredStrategy.startAt.slice(0,10)} đến ngày {filteredStrategy.endAt.slice(0,10)}</p>
+                        <p className='mt-3'>Thời gian: {new Date(filteredStrategy.startAt).toLocaleDateString()} - {new Date(filteredStrategy.endAt).toLocaleDateString()}</p>
                         <p className='mt-3'>Địa điểm: {filteredStrategy.place}</p>
                         <p className='mt-3'>Mô tả: {filteredStrategy.description}
                         </p>
