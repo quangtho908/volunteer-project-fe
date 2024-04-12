@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../Shared/Footer/Footer'
 import './index.css';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import Header from '../Shared/Header/Header';
 import SubHeader from '../Shared/SubHeader';
 import { useGetDoctorQuery } from '../../redux/api/doctorApi';
@@ -25,7 +25,7 @@ const StudentList = () => {
     if (!isLoading && !isError && data?.id === undefined) content = <Empty />
     if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
 
- 
+
 
     const items = [
         {
@@ -50,7 +50,12 @@ const StudentList = () => {
         // },
     ];
 
-    
+    const role = JSON.parse(localStorage.getItem('role'));
+    if ((role !== 0)) {
+        return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
+    }
+
+
     return (
         <>
             <Header />

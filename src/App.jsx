@@ -29,7 +29,7 @@ import Blog from './components/Blog/Blog';
 import BlogDetails from './components/Blog/BlogDetails';
 import Contact from './components/Contact/Contact';
 import About from './components/About/About';
-import CampaignDetails  from "./components/CampaignDetailsUniver/CampaignDetails";
+import CampaignDetails from "./components/CampaignDetailsUniver/CampaignDetails";
 import AppointmentPage from './components/Appointment/AppointmentPage';
 import TrackAppointment from './components/TrackAppointment/TrackAppointment';
 import Treatment from './components/Doctor/Treatment/Treatment';
@@ -54,6 +54,7 @@ import StudentList from './components/StudentList/StudentList';
 
 import ListProjectSV from './components/ListProject/ListProjectSV';
 import ManageSchools from './components/ListSchool/ManagementSchool';
+import ProtectedRoute from './ProtectedRoute';
 
 
 
@@ -90,7 +91,7 @@ function App() {
         <Route path='/appointment' element={<AppointmentPage />} />
         <Route path='/track-appointment' element={<TrackAppointment />} />
         <Route path='/doctors' element={<SearchDoctor />} />
-        <Route path='/campaignDetail/:id' element={<CompaignDetail/>} />
+        <Route path='/campaignDetail/:id' element={<CompaignDetail />} />
 
         <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
         <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
@@ -114,10 +115,20 @@ function App() {
         <Route path='/admin/transaction' element={<Transactions />} />
         <Route path='/admin/specialites' element={<Specialites />} />
 
-        <Route path='/listProjectAdmin' element={<ListProject />} />
+        {/* <Route path='/listProjectAdmin' element={<ListProject />} /> */}
+        <Route path='/listProjectAdmin' element={
+          // <ProtectedRoute>
+            <ListProject />
+          // </ProtectedRoute> 
+        } />
+        <Route path='/manageSchools' element={
+          <ProtectedRoute>
+            <ManageSchools />
+          </ProtectedRoute>
+        } />
 
         <Route path='/choseRole' element={<Choserole />} />
-        <Route path='/' element={<Choserole />} /> 
+        <Route path='/' element={<Choserole />} />
 
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
 
@@ -125,14 +136,14 @@ function App() {
 
 
         {/* Sinh vien */}
-        <Route path='/school' element = {<SearchSchool />}/>
+        <Route path='/school' element={<SearchSchool />} />
 
         <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
 
 
-        <Route path='/manageSchools' element = {<ManageSchools/>}/>
+        <Route path='/manageSchools' element={<ManageSchools />} />
 
-        <Route path='*' element={<NotFound/>}/>
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </Router >
   );
