@@ -1,12 +1,14 @@
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const CreateCampaigns = () => {
+
     const [selectTime, setSelectTime] = useState(null);
     const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
-    const handleSelectTime = (date) => { 
+    const handleSelectTime = (date) => {
         const selectedDate = moment(date).format("YYYY-MM-DD");
         setSelectTime(selectedDate);
     }
@@ -34,6 +36,11 @@ const CreateCampaigns = () => {
         return () => clearInterval(interval);
     }, [banners.length]);
 
+    const role = JSON.parse(localStorage.getItem('role'));
+    if ((role !== 0)) {
+        return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
+    }
+
     return (
         <div style={{ marginTop: '0', backgroundColor: "#1977cc", height: "fit-content", padding: "10px", textAlign: "center" }}>
             <label style={{ backgroundColor: "#1977cc", color: "white", fontWeight: "500", fontSize: "24px", padding: "5px 10px", borderRadius: "5px" }}>TẠO CÁC CHIẾN DỊCH MÙA HÈ XANH</label>
@@ -45,7 +52,7 @@ const CreateCampaigns = () => {
                             <form className="row form-row">
                                 <div className="col-md-12 mb-2">
                                     <label className="form-label">Tên chiến dịch:</label>
-                                    <input className="form-control" placeholder='Tên chiến dịch'/>
+                                    <input className="form-control" placeholder='Tên chiến dịch' />
                                 </div>
                                 <div className="col-md-12 mb-2">
                                     <label className="form-label">Trường:</label>
@@ -57,27 +64,27 @@ const CreateCampaigns = () => {
                                 </div>
                                 <div className="col-md-6 mb-2">
                                     <label className="form-label">Địa điểm:</label>
-                                    <input className="form-control" placeholder='Tên chiến dịch'/>
+                                    <input className="form-control" placeholder='Tên chiến dịch' />
                                 </div>
                                 <div className="col-md-6 mb-2">
                                     <label className="form-label">Thời gian:</label>
-                                    <DatePicker 
+                                    <DatePicker
                                         className="form-control"
                                         picker="date"
                                         format="YYYY-MM-DD"
-                                        onChange={handleSelectTime} 
+                                        onChange={handleSelectTime}
                                     />
                                 </div>
                                 <div className="col-md-12 mb-2">
                                     <label className="form-label">Poster:</label>
-                                    <input className="form-control" placeholder='Đường dẫn ảnh'/>
+                                    <input className="form-control" placeholder='Đường dẫn ảnh' />
                                 </div>
                                 <div className="col-md-12">
                                     <label className="form-label">Mô tả về chiến dịch:</label>
-                                    <textarea required className="form-control mb-3" cols="30" rows="10" placeholder="Mô tả về chiến dịch"/>
+                                    <textarea required className="form-control mb-3" cols="30" rows="10" placeholder="Mô tả về chiến dịch" />
                                 </div>
                                 <div className="text-center mt-3 mb-5 col-md-12 ">
-                                    <button style={{backgroundColor:"#1977cc"}} type='submit' className="form-control" background="blue">Tạo</button>
+                                    <button style={{ backgroundColor: "#1977cc" }} type='submit' className="form-control" background="blue">Tạo</button>
                                 </div>
                             </form>
                         </div>
