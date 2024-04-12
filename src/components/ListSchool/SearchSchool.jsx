@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../Shared/Footer/Footer';
 // import SearchSidebar from './SearchSidebar';
 // import SearchContent from './SearchContent';
 import { useDebounced } from '../../utils/hooks/useDebounced';
 // import { useGetDoctorsQuery } from '../../../redux/api/doctorApi';
-import { Empty } from 'antd';
+import { Empty, message } from 'antd';
 import { Pagination } from 'antd';
 import Header from '../Shared/Header/Header';
 import SubHeader from '../Shared/SubHeader';
@@ -19,7 +19,7 @@ const SearchSchool = () => {
     const [sortByGender, setSorByGender] = useState("");
     const [specialist, setSpecialist] = useState("");
     const [priceRange, setPriceRange] = useState({});
-    
+    const [infoError, setInfoError] = useState('');
     // Đặt giá trị mặc định cho isLoading và isError
     const isLoading = false;
     const isError = false;
@@ -48,23 +48,46 @@ const SearchSchool = () => {
         { id: 15, name: "Universities 15", specialty: "Specialty 1", gender: "Male" },
         { id: 16, name: "Universities 16", specialty: "Specialty 2", gender: "Female" },
     ];
-
+    const [univercity, setUniversity] = useState([]);
     // Mock meta data
     const mockMeta = { total: mockSchoolsData.length };
     //  // Render danh sách trường đại học
     //  const startIndex = (page - 1) * size;
     //  const endIndex = startIndex + size;
     //  const displayedSchools = mockSchoolsData.slice(startIndex, endIndex);
- 
+    const handleGetListUniversities = async (email, password) => {
+        try {
+            const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
+                method: 'GET'
+            });
+
+            const data = await response.json();
+            
+            // Handle the response data here
+            if (response) {
+                console.log('ok')
+                console.log(data)
+                setUniversity(data.data)
+            } else {
+                // Handle the error response here
+                console.error(data?.message);
+                
+            }
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+           
+        }
+    }
     //what to render
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
-    if (!isLoading && !isError && mockSchoolsData.length === 0) content = <div><Empty /></div>;
-    if (!isLoading && !isError && mockSchoolsData.length > 0) content =
+    if (!isLoading && !isError && univercity.length === 0) content = <div><Empty /></div>;
+    if (!isLoading && !isError && univercity.length > 0) content =
         
     <>
-    {mockSchoolsData && mockSchoolsData?.map((item, id) => (
+    {univercity?.map((item, id) => (
         <div key={id + item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
             <div onClick={() => {
                handleDetail(item.id);
@@ -88,6 +111,11 @@ const SearchSchool = () => {
         setSize(pageSize);
     };
 
+    useEffect(() => {
+        handleGetListUniversities();
+    }, [])
+
+   
     return (
         <div>
             <Header />
