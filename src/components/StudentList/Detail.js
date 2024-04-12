@@ -96,13 +96,13 @@ useEffect(() => {
             <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
                 <div className="row p-5">
                     <div className="col-lg-6">
-                        <img src={ImageHeading} alt="" className="img-fluid rounded shadow" />
+                        <img src={filteredStrategy.image} alt="" className="img-fluid rounded shadow" />
                     </div>
                     <div className="col-lg-6">
                         <div className='section-title text-center'>
                             <h2 className='text-uppercase'>{filteredStrategy.name}</h2>
                         </div>
-                        <p className='mt-3'>Thời gian: Từ ngày {filteredStrategy.startAt} đến ngày {filteredStrategy.endAt}</p>
+                        <p className='mt-3'>Thời gian: Từ ngày {filteredStrategy.startAt.slice(0,10)} đến ngày {filteredStrategy.endAt.slice(0,10)}</p>
                         <p className='mt-3'>Địa điểm: {filteredStrategy.place}</p>
                         <p className='mt-3'>Mô tả: {filteredStrategy.description}
                         </p>
