@@ -4,7 +4,7 @@
 // import SubHeader from '../../Shared/SubHeader'
 // import SearchSidebar from './SearchSidebar'
 import ProjectContent from './ProjectContent'
-import React, { useEffect, useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import SearchSidebar from '../Doctor/SearchDoctor/SearchSidebar';
 import SearchContent from '../Doctor/SearchDoctor/SearchContent';
@@ -18,14 +18,42 @@ import ProjectSidebar from './ProjectSidebar';
 import { Navigate } from 'react-router-dom';
 
 
-const ListProject = () => {
-  // const [role, setRole] = useState(5);
-  const role = JSON.parse(localStorage.getItem('role'));
+const ListProject = ({}) => {
+  const[strategies,setStrategies]=  useState([]);
+  const token = JSON.parse(localStorage.getItem('token'));
+  const handleGetStrategies = async () => {
+    try {
+      const response = await fetch('https://project-software-z6dy.onrender.com/strategies', {
+        method: 'GET',
+        headers: {
+          'accept': '*/*',
+          'Authorization':'Bearer ' + token        
+        },
+      });
+  
+      const data = await response.json();
+  
+      // Handle the response data here
+      if (response.ok) {
+        setStrategies(data.data);
+        console.log(data.data); // Check the fetched data
+      } else {
+        // Handle the error response here
+        console.error(data?.message);
+      }
+    } catch (error) {
+      // Handle any errors here
+      console.error(error);
+    }
+  }
+  
+useEffect(() => {
+  handleGetStrategies();
+},[])
+const role = JSON.parse(localStorage.getItem('role'));
   if ((role !== 0)) {
     return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
   }
-
-
   return (
     <div>
       <Header />
@@ -96,15 +124,22 @@ const ListProject = () => {
                                     total={meta?.total}
                                     pageSize={size}
                                 /> */}
-                <ProjectContent />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                                {strategies.map((strategiesItem) =>(
+                                   <ProjectContent 
+                                   key={strategies.id}
+                                   strategiesItem={strategiesItem}
+                                   />
+                                ))}
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+      
       <Footer />
-    </div>
+      </div>
   )
 }
 
-export default ListProject
+export default ListProject;

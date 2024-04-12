@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './index.css';
 // import Header from '../Shared/Header/Header';
 // import Footer from '../Shared/Footer/Footer';
@@ -12,9 +12,45 @@ import { Empty, message, Modal } from 'antd';
 // import { FaLocationArrow, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import { useGetDoctorsQuery } from '../../redux/api/doctorApi';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
 
-const Detail = () => {
+const Detail = ({}) => {
+    const {id}= useParams();
+    const[strategies,setStrategies]=  useState([]);
+    const [filteredStrategy,setFilteredStrategy]= useState({});
+
+  const handleGetStrategies = async () => {
+    try {
+      const response = await fetch('https://project-software-z6dy.onrender.com/strategies', {
+        method: 'GET',
+        headers: {
+          'accept': '*/*',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI4ODc4ODE1MTEsImlhdCI6MTcxMjg4Nzg4MX0.LC8YPbX1i_Zi4HSMoZ3pgpoq5iA8RtgxF9B8_lIEKnI'
+        },
+      });
+  
+      const data = await response.json();
+  
+      // Handle the response data here
+      if (response.ok) {
+        setStrategies(data.data);
+        console.log(data.data); // Check the fetched data
+        setFilteredStrategy(data.data.find(strategy => strategy.id === parseInt(id)))
+      } else {
+        // Handle the error response here
+        console.error(data?.message);
+      }
+    } catch (error) {
+      // Handle any errors here
+      console.error(error);
+    }
+  }
+  
+useEffect(() => {
+  handleGetStrategies();
+},[])
+
     const { data, isError, isLoading } = useGetAllBlogsQuery({ limit: 4 });
     const { data: doctorData, isLoading: DoctorIsLoading, isError: doctorIsError } = useGetDoctorsQuery({ limit: 4 });
 
@@ -55,6 +91,8 @@ const Detail = () => {
         <>
             {/* <Header />
             <SubHeader title="Chi Tiết"/> */}
+
+
             <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
                 <div className="row p-5">
                     <div className="col-lg-6">
@@ -62,14 +100,11 @@ const Detail = () => {
                     </div>
                     <div className="col-lg-6">
                         <div className='section-title text-center'>
-                            <h2 className='text-uppercase'>Mùa hè xanh 2024 - Chung tay xây dựng quê hương</h2>
+                            <h2 className='text-uppercase'>{filteredStrategy.name}</h2>
                         </div>
-                        <p className='mt-3'>Thời gian: Từ ngày 1/7/2024 đến ngày 31/7/2024</p>
-                        <p className='mt-3'>Địa điểm: Xã A, huyện B, tỉnh C</p>
-                        <p className='mt-3'>Mô tả: Xây dựng 10 căn nhà mới cho các hộ gia đình khó khăn tại xã A. Xây dựng 10 căn nhà mới cho các hộ gia đình khó khăn tại xã A.
-                            Tham gia sửa chữa 20 căn nhà cho các hộ gia đình neo đơn, gia đình chính sách tại xã A.
-                            Hỗ trợ phát triển sản xuất cho 10 hộ gia đình tại xã A bằng cách trao tặng cây, con giống và tập huấn kỹ thuật chăn nuôi, trồng trọt.
-                            Tham gia dọn dẹp vệ sinh môi trường, trồng cây xanh tại các tuyến đường chính của xã A.
+                        <p className='mt-3'>Thời gian: Từ ngày {filteredStrategy.startAt} đến ngày {filteredStrategy.endAt}</p>
+                        <p className='mt-3'>Địa điểm: {filteredStrategy.place}</p>
+                        <p className='mt-3'>Mô tả: {filteredStrategy.description}
                         </p>
                         <div className="text-center mt-4">
                             <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button>

@@ -3,7 +3,7 @@ import './index.css';
 import Header from '../Shared/Header/Header';
 import Footer from '../Shared/Footer/Footer';
 import SubHeader from '../Shared/SubHeader';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Button } from 'antd';
 
 const CampaignDetails = () => {
@@ -51,7 +51,10 @@ const CampaignDetails = () => {
             console.error('Error updating campaign status:', error);
         }
     };
-    
+    const role = JSON.parse(localStorage.getItem('role'));
+    if ((role !== 1)) {
+        return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
+    }
     
 
     return (
