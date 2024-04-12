@@ -26,6 +26,7 @@ const ListProjectSV = () => {
     const [projects, setProjects] = useState([]);
     const { id } = useParams();
 
+    const token = JSON.parse(localStorage.getItem('token'));
 
     const handleGetList = async (email, password) => {
         try {
@@ -33,8 +34,7 @@ const ListProjectSV = () => {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
-                    'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI5MDc3MTA3MzksImlhdCI6MTcxMjkwNzcxMH0.JPXpdRhTw0kAyUACg7gFXaXVToTru9tVYoRAcviKgsA'
-                },
+                    'Authorization':'Bearer ' + token                },
 
             });
 

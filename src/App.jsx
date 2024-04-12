@@ -63,86 +63,20 @@ function App() {
     <Router>
       <Routes>
         <Route element={<PrivateOutlet />}>
-          <Route path='/dashboard/blogs' element={<Blogs />} />
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/dashboard/my-patients' element={<MyPatients />} />
-          <Route path='/dashboard/reviews' element={<Reviews />} />
-          <Route path='/dashboard/schedule' element={<Schedule />} />
-          <Route path='/dashboard/appointments' element={<Appointments />} />
-          <Route path='/dashboard/appointments/:id' element={<ViewAppointment />} />
-          <Route path='/dashboard/prescription' element={<Prescription />} />
-          <Route path='/dashboard/prescription/:id' element={<PrescriptionView />} />
-          <Route path='/dashboard/appointment/treatment/:id' element={<Treatment />} />
-          <Route path='/dashboard/appointment/treatment/edit/:id' element={<TreatmentEdit />} />
-          <Route path='/dashboard/change-password' element={<ChangePassword />} />
-          <Route path='/dashboard/profile-setting' element={<ProfileSetting />} />
-          <Route path='/dashboard/favourite' element={<PatientFavouriteDoctor />} />
-          <Route path='/dashboard/invoices' element={<DoctorInvoice />} />
-
         </Route>
         <Route path='/login' element={<SignInForm />} />
-        {/* <Route path='/' element={<Home />} /> */}
-        <Route path='/blog' element={<Blog />} />
-        <Route path='/blog/:id' element={<BlogDetails />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/about' element={<About />} />
         <Route path='/list-campaign' element={<ListCampaign />} />
-        <Route path='/reset-password/:userId/:uniqueString' element={<ForgotPassword />} />
-        <Route path='/appointment' element={<AppointmentPage />} />
-        <Route path='/track-appointment' element={<TrackAppointment />} />
-        <Route path='/doctors' element={<SearchDoctor />} />
         <Route path='/campaignDetail/:id' element={<CompaignDetail />} />
-
-        <Route path='/doctors/profile/:id' element={<DoctorProfile />} />
-        <Route path='/dashboard/blogs/:id' element={<BlogsEdit />} />
-        <Route path='/dashboard/blogs/create' element={<AddBlog />} />
-        <Route path='/booking/:doctorId' element={<DoctorBooking />} />
-        <Route path='/booking/success/:id' element={<BookingSuccess />} />
-        <Route path='/booking/invoice/:id' element={<BookingInvoice />} />
-
         <Route path='/createCampaigns' element={<CreateCampaigns />} />
-
-
-
-
-        {/* Admin Dashboard  */}
-        <Route path='/admin/dashboard' element={<AdminDashboard />} />
-        <Route path='/admin/appointments' element={<AdminAppointments />} />
-        <Route path='/admin/doctors' element={<Doctors />} />
-        <Route path='/admin/patients' element={<Patients />} />
-        <Route path='/admin/profile' element={<Profile />} />
-        <Route path='/admin/reviews' element={<AdminReviews />} />
-        <Route path='/admin/transaction' element={<Transactions />} />
-        <Route path='/admin/specialites' element={<Specialites />} />
-
-        {/* <Route path='/listProjectAdmin' element={<ListProject />} /> */}
-        <Route path='/listProjectAdmin' element={
-          // <ProtectedRoute>
-            <ListProject />
-          // </ProtectedRoute> 
-        } />
-        <Route path='/manageSchools' element={
-          <ProtectedRoute>
-            <ManageSchools />
-          </ProtectedRoute>
-        } />
-
+        <Route path='/listProjectAdmin' element={<ListProject />} />
+        <Route path='/manageSchools' element={<ManageSchools />} />
         <Route path='/choseRole' element={<Choserole />} />
         <Route path='/' element={<Choserole />} />
-
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
-
         <Route path='/detail/studentList/:id' element={<StudentList />} />
-
-
-        {/* Sinh vien */}
         <Route path='/school' element={<SearchSchool />} />
-
         <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
-
-
         <Route path='/manageSchools' element={<ManageSchools />} />
-
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router >
