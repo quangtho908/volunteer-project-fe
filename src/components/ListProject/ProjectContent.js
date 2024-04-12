@@ -19,7 +19,7 @@ const ProjectContent = ({strategiesItem }) => {
                 <div className='d-flex gap-3'>
                     <div className='doc-img-fluid d-flex align-items-center'>
                         {/* { data?.img && <img src={data?.img} className="" alt="User Image" />} */}
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s" className="" alt="User Image" />
+                        <img src={strategiesItem.image} className="" alt="User Image" />
                     </div>
                     <div className="doc-info">
                         <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{strategiesItem.name}</Link></h5>

@@ -1,5 +1,5 @@
 import React from 'react';
-import bgImage from '../../images/img/banner.jpg'
+import bgImage from '../../images/banner2.jpg'
 
 const SubHeader = ({title, subtitle}) => {
     const sectionStyle = {
@@ -19,7 +19,7 @@ const SubHeader = ({title, subtitle}) => {
         right: '0',
         width: '100%',
         height: '100%',
-        opacity: '0.9',
+        opacity: '0.1',
         background: '#223a66',
     };
 
