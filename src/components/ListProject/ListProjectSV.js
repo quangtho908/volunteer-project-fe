@@ -25,16 +25,19 @@ const ListProjectSV = () => {
 
     const [projects, setProjects] = useState([]);
     const { id } = useParams();
+    const [filteredStrategy, setFilteredStrategy] = useState({});
+
 
     const token = JSON.parse(localStorage.getItem('token'));
 
-    const handleGetList = async (email, password) => {
+    const handleGetList = async () => {
         try {
             const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=0`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
-                    'Authorization':'Bearer ' + token                },
+                    'Authorization': 'Bearer ' + token
+                },
 
             });
 
@@ -45,7 +48,7 @@ const ListProjectSV = () => {
                 console.log('ok')
                 console.log(data.data)
                 setProjects(data.data)
-
+                setFilteredStrategy(data.data.find(strategy => strategy.id === parseInt(id)))
             } else {
                 // Handle the error response here
                 console.error(data?.message);
@@ -78,22 +81,22 @@ const ListProjectSV = () => {
                                 < div className='text-center mb-5' key={project.id}>
                                     < div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
                                         <div className='d-flex p-3 justify-content-between align-items-center'>
-                                                <div className='doc-img-fluid d-flex align-items-center'>
-                                                    {/* { project?.img && <img src={project?.img} className="" alt="User Image" />} */}
-                                                    <img
-                                                        src={project.image}
-                                                        className="" alt="User Image" />
+                                            <div className='doc-img-fluid d-flex align-items-center'>
+                                                {/* { project?.img && <img src={project?.img} className="" alt="User Image" />} */}
+                                                <img
+                                                    src={project.image}
+                                                    className="" alt="User Image" />
+                                            </div>
+                                            <div className="doc-info">
+                                                <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{project.name}</Link></h5>
+                                                <div className="clinic-details mt-2">
+                                                    <p className="form-text text-secondary"><FaLocationArrow style={{ marginRight: 5 }} />{project.place}</p>
+                                                    <p className="form-text text-secondary">    <FaClock style={{ marginRight: 5 }} />
+                                                        {new Date(project.startAt).toLocaleDateString('vi-VN')} - {new Date(project.startAt).toLocaleDateString('vi-VN')}
+                                                    </p>
+                                                    <p className="form-text text-secondary">Đăng ký trước: {new Date(project.startAt).toLocaleDateString('vi-VN')}</p>
                                                 </div>
-                                                <div className="doc-info">
-                                                    <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{project.name}</Link></h5>
-                                                    <div className="clinic-details mt-2">
-                                                        <p className="form-text text-secondary"><FaLocationArrow style={{marginRight: 5}}/>{project.place}</p>
-                                                        <p className="form-text text-secondary">    <FaClock style={{marginRight: 5}}/>
-                                                            {new Date(project.startAt).toLocaleDateString('vi-VN')} - {new Date(project.startAt).toLocaleDateString('vi-VN')}
-                                                        </p>
-                                                        <p className="form-text text-secondary">Đăng ký trước: {new Date(project.startAt).toLocaleDateString('vi-VN')}</p>
-                                                    </div>
-                                                </div>
+                                            </div>
                                             <div className="doc-info-right me-3">
                                                 <div className="clini-infos">
                                                     <ul>
@@ -105,7 +108,7 @@ const ListProjectSV = () => {
                                                 </div>
                                                 <div className="clinic-booking">
                                                     <div className='clinic-booking-button'>
-                                                        <Link to={`/campaignDetail/${id}`} className="pro-btn"> chi tiết </Link>
+                                                        <Link to={`/campaignDetail/${project.id}`} className="pro-btn"> chi tiết </Link>
                                                     </div>
 
                                                 </div>

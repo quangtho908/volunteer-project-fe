@@ -44,8 +44,7 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
     // const services = data?.services?.split(',')
     return (
         <div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
-            <div className='d-flex p-3 justify-content-between'>
-                <div className='d-flex gap-3'>
+            <div className='d-flex p-3 justify-content-between align-items-center'>
                     <div className='doc-img-fluid d-flex align-items-center'>
                         {/* { data?.img && <img src={data?.img} className="" alt="User Image" />} */}
                         <img
@@ -82,7 +81,6 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
                         </div>
 
                     </div>
-                </div>
                 <div className="doc-info-right me-3">
                     <div className="clini-infos">
                         <ul>
@@ -93,11 +91,13 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
                         </ul>
                     </div>
                     <div className="clinic-booking">
-                        <div className='clinic-booking-button'>
+                        <div  className='clinic-booking-button'>
                             <Link to={`/detail/studentList/${strategiesItem.id}`} className="pro-btn" >   chi tiết   </Link>
                         </div>
+
                         <div className='clinic-booking-button mt-2'>
-                            <Link onClick={handleDeleteStrategy} className="apt-btn">Đăng Ký</Link>
+                            <Link onClick={handleDeleteStrategy} className="apt-btn">Xóa</Link>
+
                         </div>
                     </div>
 
