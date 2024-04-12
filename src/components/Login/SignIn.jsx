@@ -88,6 +88,8 @@ const SignIn = ({ handleResponse }) => {
             
             // Handle the response data here
             if (response.ok) {
+                console.log(data.data.token);
+                localStorage.setItem("token", JSON.stringify(data.data.token));
                 const token = data?.data?.token;
                 // Decode the token here
                 const decodedToken = decodeToken(token);

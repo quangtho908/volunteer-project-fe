@@ -1,16 +1,16 @@
 import SubHeader from '../Shared/SubHeader'
 import Footer from '../Shared/Footer/Footer'
 import Header from '../Shared/Header/Header'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
 import axios from 'axios';
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ListCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
-
+    const token = JSON.parse(localStorage.getItem('token'));
     useEffect(() => {
         const getAllCampaigns = async () => {
             try {
@@ -19,7 +19,7 @@ const ListCampaign = () => {
                     headers: {
                         'accept': '*/*',
                         'Content-Type': 'application/json',
-                        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI4ODc4ODE1MTEsImlhdCI6MTcxMjg4Nzg4MX0.LC8YPbX1i_Zi4HSMoZ3pgpoq5iA8RtgxF9B8_lIEKnI'
+                        'Authorization':'Bearer ' + token
                     }
                 });
                 const data = await response.json();

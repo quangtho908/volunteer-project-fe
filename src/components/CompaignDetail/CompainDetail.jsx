@@ -36,13 +36,14 @@ const CompaignDetail = () => {
 
     const { id } = useParams();
 
+    const token = JSON.parse(localStorage.getItem('token'));
     const handleGetList = async (email, password) => {
         try {
             const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=0`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJxdWFuZ3RobzIzMDYyMDAyQGdtYWlsLmNvbSIsInJvbGUiOjAsInRpbWUiOjE3MTI4ODc4ODE1MTEsImlhdCI6MTcxMjg4Nzg4MX0.LC8YPbX1i_Zi4HSMoZ3pgpoq5iA8RtgxF9B8_lIEKnI'
+                    'Authorization': 'Bearer ' + token,
                 },
 
             });
