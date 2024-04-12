@@ -76,34 +76,24 @@ const ListProjectSV = () => {
                             {projects.map(project => (
 
                                 < div className='text-center mb-5' key={project.id}>
-
                                     < div className="mb-4 rounded" style={{ background: '#f3f3f3' }}>
-                                        <div className='d-flex p-3 justify-content-between'>
-                                            <div className='d-flex gap-3'>
+                                        <div className='d-flex p-3 justify-content-between align-items-center'>
                                                 <div className='doc-img-fluid d-flex align-items-center'>
-                                                    {/* { data?.img && <img src={data?.img} className="" alt="User Image" />} */}
+                                                    {/* { project?.img && <img src={project?.img} className="" alt="User Image" />} */}
                                                     <img
-                                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s"
+                                                        src={project.image}
                                                         className="" alt="User Image" />
                                                 </div>
-
                                                 <div className="doc-info">
                                                     <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{project.name}</Link></h5>
-                                                    <p className='m-0 form-text'>{project.description}</p>
-                                                    {/* <p className="doc-department m-0"><img src={showImg} className="img-fluid" alt="Speciality" />Urology</p> */}
                                                     <div className="clinic-details mt-2">
-                                                        <p className="form-text text-secondary"><FaLocationArrow />{project.place}</p>
-                                                        <p className="form-text text-secondary">    <FaClock />
+                                                        <p className="form-text text-secondary"><FaLocationArrow style={{marginRight: 5}}/>{project.place}</p>
+                                                        <p className="form-text text-secondary">    <FaClock style={{marginRight: 5}}/>
                                                             {new Date(project.startAt).toLocaleDateString('vi-VN')} - {new Date(project.startAt).toLocaleDateString('vi-VN')}
                                                         </p>
-                                                        <p className="form-text text-secondary">Đăng ký trước:
-                                                            {new Date(project.startAt).toLocaleDateString('vi-VN')}</p>
-
-
+                                                        <p className="form-text text-secondary">Đăng ký trước: {new Date(project.startAt).toLocaleDateString('vi-VN')}</p>
                                                     </div>
-
                                                 </div>
-                                            </div>
                                             <div className="doc-info-right me-3">
                                                 <div className="clini-infos">
                                                     <ul>
@@ -115,11 +105,9 @@ const ListProjectSV = () => {
                                                 </div>
                                                 <div className="clinic-booking">
                                                     <div className='clinic-booking-button'>
-                                                        <Link to={'/campaignDetail/1'} className="pro-btn"> chi tiết </Link>
+                                                        <Link to={`/campaignDetail/${id}`} className="pro-btn"> chi tiết </Link>
                                                     </div>
-                                                    <div className='clinic-booking-button mt-2'>
-                                                        <Link to={`/booking/1`} className="apt-btn">Đăng Ký</Link>
-                                                    </div>
+
                                                 </div>
 
                                             </div>

@@ -32,14 +32,25 @@ const CompaignDetail = () => {
     };
 
     const { register, handleSubmit, reset } = useForm({});
-    const [detailCampaigns, setDetailCampaigns] = useState([]);
+    // const [detailCampaigns, setDetailCampaigns] = useState({});
+    const [filteredStrategy, setFilteredStrategy] = useState([]);
+
+    const [fullName, setFullName] = useState('');
+    const [mssv, setMssv] = useState('');
+    const [email, setEmail] = useState('');
+    const [skills, setSkills] = useState('');
+    
+
 
     const { id } = useParams();
 
+    const idUni = JSON.parse(localStorage.getItem('idUni'));
+
     const token = JSON.parse(localStorage.getItem('token'));
-    const handleGetList = async (email, password) => {
+
+    const handleCompaignDetail = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=0`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
@@ -53,7 +64,58 @@ const CompaignDetail = () => {
             // Handle the response data here
             if (response.ok) {
                 console.log('ok')
-                setDetailCampaigns(data.data)
+                console.log(data.data)
+                // setDetailCampaigns(data.data)
+                setFilteredStrategy(data.data.find(strategy => strategy.id === parseInt(id)))
+
+
+            } else {
+                // Handle the error response here
+                console.error(data?.message);
+
+            }
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+
+        }
+    }
+
+    const handleĐKCampaign = async () => {
+        try {
+            console.log(fullName, mssv, email, skills, filteredStrategy.id, idUni)
+            const response = await fetch(`https://project-software-z6dy.onrender.com/applicant`, {
+                method: 'POST',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
+
+                body: JSON.stringify({
+                    fullName: fullName,
+                    mssv: mssv,
+                    email: email,
+                    skill: skills,
+                    strategy: filteredStrategy.id,
+                    university: idUni,
+                }),
+
+            });
+
+            const data = await response.json();
+            // Handle the response data here
+            if (response.ok) {
+                console.log('ok')
+                console.log(data.data)
+                if (data.message === "SUCCESSFULLY") {
+                    console.log('Đăng ký thành công');
+                    window.location.href = `/listProjectSV/${idUni}`
+                    alert('Đăng ký thành công');
+                } else {
+                    console.error('Đăng ký không thành công:', data.message);
+                    // Hiển thị thông báo lỗi cho người dùng (nếu cần)
+                }
 
             } else {
                 // Handle the error response here
@@ -68,7 +130,7 @@ const CompaignDetail = () => {
     }
 
     useEffect(() => {
-        handleGetList()
+        handleCompaignDetail()
     }, [])
 
     let doctorContent = null;
@@ -89,30 +151,6 @@ const CompaignDetail = () => {
             ))}
         </>
 
-    // let content = null;
-    // if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    // if (!isLoading && !isError && blogData?.length === 0) content = <Empty />
-    // if (!isLoading && !isError && blogData?.length > 0) content =
-    //     <>
-    //         {
-    //             blogData && blogData?.map((item, id) => (
-    //                 <div className="col-lg-3 col-md-6" key={id + item.id}>
-    //                     <div className="card shadow border-0 mb-5 mb-lg-0">
-    //                         <img src={item?.img} alt="blog Image" width={300} height={200} className="w-100  rounded-top image-hover" style={{ objectFit: 'contain' }} />
-
-    //                         <div className='p-2'>
-    //                             <Link to={`/blog/${item?.id}`}>
-    //                                 <h6 className="text-start mb-1 text-capitalize" style={{ color: '#223a66' }}>{truncate(item?.title, 40)}</h6>
-    //                             </Link>
-    //                             <div className="px-2">
-    //                                 <p className="form-text text-start text-capitalize">{truncate(item?.description, 80)}</p>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             ))
-    //         }
-    //     </>
     return (
         <>
             <Header />
@@ -122,21 +160,22 @@ const CompaignDetail = () => {
                     <div className="col-lg-6">
                         <img src={ImageHeading} alt="" className="img-fluid rounded shadow" />
                     </div>
-                    {detailCampaigns.map(detailCampaign => (
-                        <div className="col-lg-6">
-                            <div className='section-title text-center'>
-                                <h2 className='text-uppercase'>{detailCampaign.name}</h2>
-                            </div>
-                            <p className='mt-3'>Thời gian: Từ ngày {new Date(detailCampaign.startAt).toLocaleDateString('vi-VN')} đến {new Date(detailCampaign.startAt).toLocaleDateString('vi-VN')}
-                            </p>
-                            <p className='mt-3'>Địa điểm: {detailCampaign.place}</p>
-                            <p className='mt-3'>Mô tả: {detailCampaign.description}
-                            </p>
-                            <div className="text-center mt-4">
-                                <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button>
-                            </div>
+
+                    <div className="col-lg-6">
+                        <div className='section-title text-center'>
+                            <h2 className='text-uppercase'>{filteredStrategy.name}</h2>
                         </div>
-                    ))}
+                        <div className='group-info' style={{marginLeft: 35}}>
+                            <p className='mt-3'>Thời gian: Từ ngày {new Date(filteredStrategy.startAt).toLocaleDateString('vi-VN')} đến {new Date(filteredStrategy.startAt).toLocaleDateString('vi-VN')}
+                            </p>
+                            <p className='mt-3'>Địa điểm: {filteredStrategy.place}</p>
+                            <p className='mt-3'>Mô tả: {filteredStrategy.description}</p>
+                        </div>
+                        <div className="text-center mt-4">
+                            <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <Modal
@@ -152,42 +191,36 @@ const CompaignDetail = () => {
                                 <div className="col-md-6">
                                     <div className="form-group mb-2 card-label">
                                         <label>Họ và Tên</label>
-                                        <input required {...register("firstName")} className="form-control" />
+                                        <input onChange={(e) => setFullName(e.target.value)} type='text' className="form-control" />
                                     </div>
                                 </div>
 
                                 <div className="col-md-6">
                                     <div className="form-group mb-2 card-label">
                                         <label>Mã số sinh viên</label>
-                                        <input required {...register("firstName")} className="form-control" />
+                                        <input onChange={(e) => setMssv(e.target.value)} type='text' className="form-control" />
                                     </div>
                                 </div>
 
                                 <div className="col-md-12">
                                     <div className="form-group mb-2 card-label">
                                         <label>Email</label>
-                                        <input required {...register("email")} type='email' className="form-control" />
-                                    </div>
-                                </div>
-
-                                <div className="col-md-12">
-                                    <div className="form-group mb-2 card-label">
-                                        <label>Trường</label>
-                                        <input required {...register("subject")} className="form-control" />
+                                        <input onChange={(e) => setEmail(e.target.value)} type='email' className="form-control" />
                                     </div>
                                 </div>
 
                                 <div className="col-md-12">
                                     <div className="form-group">
                                         <label className='form-label'>Kỹ năng của bản thân</label>
-                                        <textarea required {...register("text")} className="form-control mb-3" cols="30" rows="10" />
+                                        <textarea onChange={(e) => setSkills(e.target.value)} className="form-control mb-3" cols="30" rows="10" />
                                     </div>
                                 </div>
 
-                                <div className="text-center mt-3 mb-5">
-                                    <button disabled={isLoading} type='submit' className="appointment-btn">Đăng ký</button>
-                                </div>
+                               
                             </form>
+                            <div className="text-center mt-3 mb-5">
+                                    <button onClick={() => handleĐKCampaign()} className="appointment-btn">Đăng ký</button>
+                                </div>
                         </div>
                     </div>
                 </div>
