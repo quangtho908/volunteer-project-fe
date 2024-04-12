@@ -70,7 +70,6 @@ const ListProject = ({ }) => {
           <div className="row">
 
             <div className="col-md-12 col-lg-4 col-xl-3">
-
               <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
                 <div className="mb-3">
                   <button onClick={() => {
