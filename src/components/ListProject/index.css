@@ -13,3 +13,7 @@
 .clinic-booking-button{
     display: inline-block;
 }
+div.pagination-container {
+    display: flex;
+    justify-content: center;
+  }

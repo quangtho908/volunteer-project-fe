@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import showImg from '../../images/specialities/specialities-01.png'
 import StarRatings from 'react-star-ratings';
@@ -9,7 +9,8 @@ import { truncate } from '../../utils/truncate';
 import { FaClock } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 
-const ProjectContent = ({strategiesItem }) => {
+const ProjectContent = ({ strategiesItem }) => {
+    const [imageError, setImageError] = useState(false);
 
 
     // const services = data?.services?.split(',')
@@ -18,7 +19,12 @@ const ProjectContent = ({strategiesItem }) => {
             <div className='d-flex p-3 justify-content-between align-items-center'>
                     <div className='doc-img-fluid d-flex align-items-center'>
                         {/* { data?.img && <img src={data?.img} className="" alt="User Image" />} */}
-                        <img src={strategiesItem.image} className="" alt="User Image" />
+                        <img
+                            src={imageError || !strategiesItem.image ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s' : strategiesItem.image}
+                            className=""
+                            alt="User Image"
+                            onError={() => setImageError(true)}
+                        />
                     </div>
                     <div className="doc-info">
                         <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{strategiesItem.name}</Link></h5>
@@ -27,8 +33,8 @@ const ProjectContent = ({strategiesItem }) => {
 
 
                         <div className="clinic-details mt-2">
-                            <p className="form-text text-secondary"><FaLocationArrow style={{marginRight: 5}}/> {strategiesItem.place}</p>
-                            <p className="form-text text-secondary"><FaClock style={{marginRight: 5}}/>Thời gian diễn ra: {strategiesItem.startAt.slice(0,10)} – {strategiesItem.endAt.slice(0,10)}</p>
+                            <p className="form-text text-secondary"><FaLocationArrow /> {strategiesItem.place}</p>
+                            <p className="form-text text-secondary"><FaClock />Thời gian diễn ra: {strategiesItem.startAt.slice(0, 10)} – {strategiesItem.endAt.slice(0, 10)}</p>
                             <p className="form-text text-secondary">Đăng ký trước: 16/06/2023</p>
                             {/* <ul className="clinic-gallery mt-3">
                                 <li>
@@ -57,14 +63,14 @@ const ProjectContent = ({strategiesItem }) => {
                         </ul>
                     </div>
                     <div className="clinic-booking">
-                        <div className='clinic-booking-button' style={{marginRight: 10}}>
+                        <div  className='clinic-booking-button'>
                             <Link to={`/detail/studentList/${strategiesItem.id}`} className="pro-btn" >   chi tiết   </Link>
                         </div>
                         <div  className='clinic-booking-button mt-2'>
-                            <Link to={`/booking/1`} className="apt-btn">Xóa</Link>
+                            <Link to={`/booking/1`} className="apt-btn">Đăng Ký</Link>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

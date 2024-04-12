@@ -4,7 +4,7 @@
 // import SubHeader from '../../Shared/SubHeader'
 // import SearchSidebar from './SearchSidebar'
 import ProjectContent from './ProjectContent'
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import SearchSidebar from '../Doctor/SearchDoctor/SearchSidebar';
 import SearchContent from '../Doctor/SearchDoctor/SearchContent';
@@ -16,10 +16,13 @@ import Header from '../Shared/Header/Header';
 import SubHeader from '../Shared/SubHeader';
 import ProjectSidebar from './ProjectSidebar';
 import { Navigate } from 'react-router-dom';
+import "./index.css";
 
+const ListProject = ({ }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-const ListProject = ({}) => {
-  const[strategies,setStrategies]=  useState([]);
+  const [strategies, setStrategies] = useState([]);
   const token = JSON.parse(localStorage.getItem('token'));
   const handleGetStrategies = async () => {
     try {
@@ -27,12 +30,12 @@ const ListProject = ({}) => {
         method: 'GET',
         headers: {
           'accept': '*/*',
-          'Authorization':'Bearer ' + token        
+          'Authorization': 'Bearer ' + token
         },
       });
-  
+
       const data = await response.json();
-  
+
       // Handle the response data here
       if (response.ok) {
         setStrategies(data.data);
@@ -46,18 +49,22 @@ const ListProject = ({}) => {
       console.error(error);
     }
   }
-  
-useEffect(() => {
-  handleGetStrategies();
-},[])
-const role = JSON.parse(localStorage.getItem('role'));
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = strategies.slice(indexOfFirstItem, indexOfLastItem);
+
+  useEffect(() => {
+    handleGetStrategies();
+  }, [])
+  const role = JSON.parse(localStorage.getItem('role'));
   if ((role !== 0)) {
     return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
   }
   return (
     <div>
       <Header />
-      <SubHeader title='Các chiến dịch' />
+      <SubHeader title='Các chiến dịch' subtitle='Lorem ipsum dolor sit amet.' />
       <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
         <div className="container-fluid">
           <div className="row">
@@ -116,28 +123,37 @@ const role = JSON.parse(localStorage.getItem('role'));
             </div>
             <div className="col-md-12 col-lg-8 col-xl-9">
               {/* {content} */}
-              <div className='text-center mb-5'>
-                {/* <Pagination
-                                    showSizeChanger
-                                    onShowSizeChange={onShowSizeChange}
-                                    total={meta?.total}
-                                    pageSize={size}
-                                /> */}
-                                {strategies.map((strategiesItem) =>(
-                                   <ProjectContent 
-                                   key={strategiesItem.id}
-                                   strategiesItem={strategiesItem}
-                                   />
-                                ))}
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-      
-      <Footer />
+              <div className='text-center mt-5 mb-5'>
+                {/* {strategies.map((strategiesItem) => (
+                  <ProjectContent
+                    key={strategiesItem.id}
+                    strategiesItem={strategiesItem}
+                  />
+                ))} */}
+                {currentItems.map((strategiesItem) => (
+                  <ProjectContent
+                    key={strategiesItem.id}
+                    strategiesItem={strategiesItem}
+                  />
+                ))}
+
+
+              </div>
+              <div className="pagination-container">
+                <Pagination
+                  current={currentPage}
+                  total={strategies.length}
+                  pageSize={itemsPerPage}
+                  onChange={(page) => setCurrentPage(page)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+    
+    </div>
   )
 }
 
