@@ -115,7 +115,7 @@ useEffect(() => {
                         <p className='mt-3'>Mô tả: {filteredStrategy.description}
                         </p>
                         <div className="text-center mt-4">
-                            <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button>
+                            {/* <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button> */}
                         </div>
                     </div>
                 </div>

@@ -16,6 +16,7 @@ const Header = () => {
     const [show, setShow] = useState(true);
     const [open, setOpen] = useState(false);
 
+
     // const lastScrollRef = useRef(0);
     const handleScroll = () => {
         const currentScroll = window.scrollY;
@@ -70,7 +71,7 @@ const Header = () => {
                 <div className="container d-flex align-items-center">
 
                     <Link to={'/'} className="logo me-auto">
-                        <img src={img} alt="" className="img-fluid" />
+                        <img src="https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg" alt="" className="img-fluid" />
                     </Link>
                     {/* <HeaderNav isLoggedIn={isLoggedIn} data={data}
                         avatar={avatar} content={content} open={open} setOpen={setOpen} /> */}

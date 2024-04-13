@@ -33,7 +33,7 @@ const SearchSchool = () => {
     const [univercity, setUniversity] = useState([]);
     // Mock meta data
     const mockMeta = { total: univercity.length };
-    const imageUrl = "https://upload.wikimedia.org/wikipedia/vi/e/e1/Logo_HCMUAF.svg";
+    const imageUrl = "https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg";
     const handleGetListUniversities = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
