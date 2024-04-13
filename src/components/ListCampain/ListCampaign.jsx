@@ -7,11 +7,14 @@ import {FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment} from "react-ico
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {Button} from "antd";
+import jwtDecode from 'jwt-decode';
 
 const ListCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem('token'));
+   
+
     const handleApprove = async (id) => {
         try {
             // Send request to update campaign status to 'approved'
@@ -34,10 +37,29 @@ const ListCampaign = () => {
             console.error('Error updating campaign status:', error);
         }
     };
-    useEffect(() => {
-        const getAllCampaigns = async () => {
+
+    const decodeToken = (token) => {
+        try {
+            const decodedToken = jwtDecode(token);
+            return decodedToken;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const decodedToken = decodeToken(token);
+    // Access the user information from the decoded token
+    const userId = decodedToken?.id;
+    const getinfo = async () => {
+        try {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/users?id=${userId}`, {
+                method: 'GET', headers: {
+                    'accept': '*/*', 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token
+                }
+            });
+            const data = await response.json();
+            var univer = data.data.organization.id
             try {
-                const response = await fetch('https://project-software-z6dy.onrender.com/strategies', {
+                const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${univer}`, {
                     method: 'GET',
                     headers: {
                         'accept': '*/*',
@@ -46,25 +68,23 @@ const ListCampaign = () => {
                     }
                 });
                 const data = await response.json();
-                console.log(data);
-                //sort by status  0 and 1
-                data.data.sort((a, b) => a.status - b.status); 
+                data.data.sort((a, b) => a.status - b.status);
                 setCampaigns(data.data);
             } catch (error) {
                 console.error('Error fetching campaigns:', error);
             }
-        };
+        } catch (error) {
+            console.error('Error fetching campaigns:', error);
+        }
+    };
 
-        getAllCampaigns().then(r => console.log(r));
+    useEffect(() => {
+        getinfo().then(r => console.log(r));
 
         return () => {
             // Cleanup logic (if needed)
         };
     }, []);
-
-    const handleCampaignClick = (campaignId) => {
-        navigate(`/campaigns/${campaignId}`);
-    };
 
     const role = JSON.parse(localStorage.getItem('role'));
     if ((role !== 1)) {
