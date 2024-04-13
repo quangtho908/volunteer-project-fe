@@ -9,7 +9,6 @@ import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/
 import { message } from 'antd';
 import { useMessageEffect } from '../../utils/messageSideEffect';
 import jwtDecode from 'jwt-decode';
-import axios from 'axios';
 
 
 const SignIn = ({ handleResponse }) => {
