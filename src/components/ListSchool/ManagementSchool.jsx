@@ -17,7 +17,7 @@ const ManageSchools = () => {
     const [specialist, setSpecialist] = useState("");
     const [priceRange, setPriceRange] = useState({});
     const [selectedSchoolId, setSelectedSchoolId] = useState(null);
-    const [univercity, setUniversity] = useState([]);
+    const [university, setUniversity] = useState([]);
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [code, setCode] = useState('');
@@ -30,7 +30,7 @@ const ManageSchools = () => {
     const imageUrl = "https://upload.wikimedia.org/wikipedia/vi/e/e1/Logo_HCMUAF.svg";
 
     // Mock meta data
-    const mockMeta = { total: univercity.length };
+    const mockMeta = { total: university.length };
     const handleGetListUniversities = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
@@ -75,7 +75,7 @@ const ManageSchools = () => {
 
             if (response.ok) {
                 console.log('Xóa trường thành công:', responseData);
-                const updatedUniversities = univercity.filter(university => university.id !== schoolId);
+                const updatedUniversities = university.filter(university => university.id !== schoolId);
                 setUniversity(updatedUniversities);
             } else {
                 console.error('Lỗi khi xóa trường:', responseData.message);
@@ -113,7 +113,7 @@ const ManageSchools = () => {
                     name: responseData.data.name,
                     image: responseData.data.image,
                 };
-                setUniversity([...univercity, newUniversity]);
+                setUniversity([...university, newUniversity]);
                 // Đóng modal sau khi thêm thành công
                 setShowSignUpPopup(false);
             } else {
@@ -145,13 +145,16 @@ const ManageSchools = () => {
             console.error('Lỗi khi thêm trường mới:', error);
         }
     };
-
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = university.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleConfirmDelete = () => {
         // Logic to delete school with the given id
-        const updatedSchools = univercity.filter(school => school.id !== selectedSchoolId);
+        const updatedSchools = university.filter(school => school.id !== selectedSchoolId);
         setUniversity(updatedSchools);
-        setSelectedSchoolId(null); // Clear selected school id
         setDeleteConfirmationVisible(false); // Close delete confirmation modal
     };
 
@@ -161,11 +164,11 @@ const ManageSchools = () => {
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
-    if (!isLoading && !isError && univercity.length === 0) content = <div><Empty /></div>;
-    if (!isLoading && !isError && univercity.length > 0) content =
+    if (!isLoading && !isError && university.length === 0) content = <div><Empty /></div>;
+    if (!isLoading && !isError && university.length > 0) content =
 
         <>
-            {univercity?.map((item, id) => (
+            {currentItems.map((item) => (
                 <div key={item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
                     <div className='d-flex p-3 justify-content-between'>
                         <div className='d-flex gap-3'>
@@ -212,12 +215,12 @@ const ManageSchools = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-8 col-xl-9 " >
                             {content}
-                            <div className='text-center mt-5 mb-5'>
+                            <div className="pagination-container">
                                 <Pagination
-                                    showSizeChanger
-                                    onShowSizeChange={onShowSizeChange}
-                                    total={mockMeta.total}
-                                    pageSize={size}
+                                current={currentPage}
+                                total={university.length}
+                                pageSize={itemsPerPage}
+                                onChange={(page) => setCurrentPage(page)}
                                 />
                             </div>
                         </div>
