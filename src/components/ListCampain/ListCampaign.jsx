@@ -67,7 +67,7 @@ const ListCampaign = () => {
     };
 
     const role = JSON.parse(localStorage.getItem('role'));
-    if ((role !== 0)) {
+    if ((role !== 1)) {
         return <Navigate to="/login"/>; // hoặc trang bạn muốn chuyển hướng khi không có token
     }
     return (
@@ -78,7 +78,7 @@ const ListCampaign = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     {campaigns.map(campaign => (
-                        <div key={campaign.id} className='col-10 align-selft-center text-center mt-5'>
+<div key={campaign.id} className='col-10 align-selft-center text-center mt-5'>
                             <div className="mb-4 rounded" style={{background: '#f3f3f3'}}>
                                 <div className='d-flex p-3 justify-content-between'>
                                     <div className='doc-img-fluid d-flex align-items-center'>
@@ -125,7 +125,7 @@ const ListCampaign = () => {
                                     </div>
                                     <div className="doc-info-right me-3">
                                         <div
-                                            className="clinic-booking d-flex flex-column justify-content-center align-items-center h-100">
+className="clinic-booking d-flex flex-column justify-content-center align-items-center h-100">
                                             <div className='clinic-booking-button mb-2 w-100'>
                                                 <Link to={`/campaigns/${campaign.id}`}
                                                       className="btn btn-primary btn-block">Chi tiết</Link>
@@ -136,7 +136,7 @@ const ListCampaign = () => {
                                                 <div className='clinic-booking-button mb-2 w-100 mt-10 mb-10'>
                                                     <Button
                                                         type="primary"
-                                                        className="btn btn-success btn-block"
+                                                        className="btn btn-success btn-block  w-100"
                                                         onClick={() => handleApprove(campaign.id)}>
                                                         Duyệt
                                                     </Button>
@@ -156,4 +156,3 @@ const ListCampaign = () => {
 }
 
 export default ListCampaign;
-

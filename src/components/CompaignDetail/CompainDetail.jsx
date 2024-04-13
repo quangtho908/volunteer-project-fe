@@ -22,6 +22,8 @@ const CompaignDetail = () => {
     const blogData = data?.blogs;
     const doctors = doctorData?.doctors;
 
+    const [imageError, setImageError] = useState(false);
+
     const [showSignUpPopup, setShowSignUpPopup] = useState(false);
     const handleSignUpButtonClick = () => {
         setShowSignUpPopup(true);
@@ -86,7 +88,7 @@ const CompaignDetail = () => {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',
-                    'Authorization': 'Bearer ' + token,
+                    // 'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json',
                 },
 
@@ -156,14 +158,18 @@ const CompaignDetail = () => {
             <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
                 <div className="row p-5">
                     <div className="col-lg-6">
-                        <img src={ImageHeading} alt="" className="img-fluid rounded shadow" />
-                    </div>
+                        <img style={{width: '100%'}}
+                            src={imageError || !filteredStrategy.image ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s' : filteredStrategy.image}
+                            className=""
+                            alt="User Image"
+                            onError={() => setImageError(true)}
+                        />                    </div>
 
                     <div className="col-lg-6">
                         <div className='section-title text-center'>
                             <h2 className='text-uppercase'>{filteredStrategy.name}</h2>
                         </div>
-                        <div className='group-info' style={{marginLeft: 35}}>
+                        <div className='group-info' style={{ marginLeft: 35 }}>
                             <p className='mt-3'>Thời gian: Từ ngày {new Date(filteredStrategy.startAt).toLocaleDateString('vi-VN')} đến {new Date(filteredStrategy.startAt).toLocaleDateString('vi-VN')}
                             </p>
                             <p className='mt-3'>Địa điểm: {filteredStrategy.place}</p>
@@ -214,17 +220,17 @@ const CompaignDetail = () => {
                                     </div>
                                 </div>
 
-                               
+
                             </form>
                             <div className="text-center mt-3 mb-5">
-                                    <button onClick={() => handleĐKCampaign()} className="appointment-btn">Đăng ký</button>
-                                </div>
+                                <button onClick={() => handleĐKCampaign()} className="appointment-btn">Đăng ký</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </Modal>
 
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

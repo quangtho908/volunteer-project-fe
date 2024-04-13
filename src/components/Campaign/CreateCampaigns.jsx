@@ -62,6 +62,7 @@ const CreateCampaigns = () => {
             if (response.ok) {
                 setUniversity(data.data);
                 console.log(data.data); // Check the fetched data
+               
             } else {
                 // Handle the error response here
                 console.error(data?.message);
@@ -127,6 +128,7 @@ const CreateCampaigns = () => {
     if ((role !== 0)) {
         return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
     }
+    console.log(university);
 
     return (
         <div style={{ marginTop: '0', backgroundColor: "#1977cc", height: "fit-content", padding: "10px", textAlign: "center" }}>
@@ -149,6 +151,7 @@ const CreateCampaigns = () => {
                                             <option key={university.id} value={university.id}>{university.name}</option>
                                         ))}
                                     </select>
+                                    {/* <select className="form-control" onChange={(e) => setUniversities(parseInt(e.target.value))}></select> */}
                                 </div>
                                 <div className="row">
                                     <div className="col-md-4 mb-2">
