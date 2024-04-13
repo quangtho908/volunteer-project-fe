@@ -27,11 +27,11 @@ const ManageSchools = () => {
     const isLoading = false;
     const isError = false;
     const token = JSON.parse(localStorage.getItem('token'));
-
+    const imageUrl = "https://upload.wikimedia.org/wikipedia/vi/e/e1/Logo_HCMUAF.svg";
 
     // Mock meta data
     const mockMeta = { total: univercity.length };
-    const handleGetListUniversities = async (email, password) => {
+    const handleGetListUniversities = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
                 method: 'GET'
@@ -170,7 +170,7 @@ const ManageSchools = () => {
                     <div className='d-flex p-3 justify-content-between'>
                         <div className='d-flex gap-3'>
                             <div className='doc-img-fluid d-flex align-items-center'>
-                                <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
+                                    <img src={imageUrl} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
                             </div>
                             <div className="doc-info">
                                 <h5 className='mb-0'>{item.name}</h5>
