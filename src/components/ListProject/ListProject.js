@@ -38,7 +38,7 @@ const ListProject = ({ }) => {
 
       // Handle the response data here
       if (response.ok) {
-        setStrategies(data.data);
+        setStrategies(data.data.reverse());
         console.log(data.data); // Check the fetched data
       } else {
         // Handle the error response here
