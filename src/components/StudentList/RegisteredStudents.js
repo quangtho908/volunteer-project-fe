@@ -7,6 +7,35 @@ const RegisteredStudents = () => {
     const { id } = useParams();
     const [applicant, setApplicant] = useState([]);
 
+    const handleDeleteStudent = async (campaignId, studentId) => {
+    try {
+        const response = await fetch(`https://project-software-z6dy.onrender.com/applicant/${campaignId}/${studentId}`, {
+            method: 'DELETE',
+            headers: {
+                'accept': '*/*',
+                'Authorization': 'Bearer ' + token
+            }
+        });
+
+        const data = await response.json();
+
+        // Handle the response data here
+        if (response.ok) {
+            console.log('Student deleted successfully:', data);
+            // Thực hiện các hành động khác sau khi xóa sinh viên thành công
+        } else {
+            // Handle the error response here
+            console.error('Failed to delete student:', data?.message);
+        }
+    } catch (error) {
+        // Handle any errors here
+        console.error('Error deleting student:', error);
+    }
+}
+
+
+
+
     const CustomButton = () => (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
             <div>
