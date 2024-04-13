@@ -117,7 +117,7 @@ const SearchSchool = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+          
         </div>
     );
 };
