@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 
 
 const Detail = ({}) => {
+    const [imageError, setImageError] = useState(false);
     const {id}= useParams();
     const[strategies,setStrategies]=  useState([]);
     const [filteredStrategy,setFilteredStrategy]= useState({});
@@ -96,7 +97,14 @@ useEffect(() => {
             <div className="container" style={{ marginBottom: 100, marginTop: 100 }}>
                 <div className="row p-5">
                     <div className="col-lg-6">
-                        <img src={filteredStrategy.image} alt="" className="img-fluid rounded shadow" />
+                        {/* <img src={filteredStrategy.image} alt="" className="img-fluid rounded shadow" /> */}
+                        <img
+                            src={imageError || !filteredStrategy.image ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s' : filteredStrategy.image}
+                            className="img-fluid rounded shadow"
+                            alt="User Image"
+                            onError={() => setImageError(true)}
+                            style={{ width: '100%', height: '100%' }}
+                        />
                     </div>
                     <div className="col-lg-6">
                         <div className='section-title text-center'>
@@ -107,7 +115,7 @@ useEffect(() => {
                         <p className='mt-3'>Mô tả: {filteredStrategy.description}
                         </p>
                         <div className="text-center mt-4">
-                            <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button>
+                            {/* <button onClick={handleSignUpButtonClick} className="appointment-btn scrollto"><span className="d-none d-md-inline">Đăng ký tham gia</span></button> */}
                         </div>
                     </div>
                 </div>

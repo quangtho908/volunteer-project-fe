@@ -17,7 +17,7 @@ const ManageSchools = () => {
     const [specialist, setSpecialist] = useState("");
     const [priceRange, setPriceRange] = useState({});
     const [selectedSchoolId, setSelectedSchoolId] = useState(null);
-    const [univercity, setUniversity] = useState([]);
+    const [university, setUniversity] = useState([]);
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [code, setCode] = useState('');
@@ -27,11 +27,11 @@ const ManageSchools = () => {
     const isLoading = false;
     const isError = false;
     const token = JSON.parse(localStorage.getItem('token'));
-
+    const imageUrl = "https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg";
 
     // Mock meta data
-    const mockMeta = { total: univercity.length };
-    const handleGetListUniversities = async (email, password) => {
+    const mockMeta = { total: university.length };
+    const handleGetListUniversities = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
                 method: 'GET'
@@ -62,12 +62,7 @@ const ManageSchools = () => {
 
     const handleDeleteSchool = async (schoolId) => {
         try {
-            // Hiển thị modal xác nhận xóa trước khi gửi yêu cầu xóa trường đến API
-            setDeleteConfirmationVisible(true);
-            setSelectedSchoolId(schoolId);
-            // Tiếp tục với phần xử lý xóa trường khi người dùng xác nhận
-            // Gửi yêu cầu xóa trường đến API
-            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${selectedSchoolId}`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${schoolId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -76,21 +71,17 @@ const ManageSchools = () => {
 
             const responseData = await response.json();
 
+
             if (response.ok) {
-                // Xử lý khi xóa thành công
+                // setDeleteConfirmationVisible(true);
                 console.log('Xóa trường thành công:', responseData);
-                // Cập nhật danh sách trường sau khi xóa thành công
-                const updatedUniversities = univercity.filter(university => university.id !== selectedSchoolId);
+                const updatedUniversities = university.filter(university => university.id !== schoolId);
                 setUniversity(updatedUniversities);
             } else {
-                // Xử lý khi có lỗi từ phía server
                 console.error('Lỗi khi xóa trường:', responseData.message);
             }
-        } catch (error) {
-            // Xử lý lỗi nếu có
+        }  catch (error) {
             console.error('Error deleting school:', error);
-            // Đặt giá trị của selectedSchoolId lại về giá trị mặc định
-            setSelectedSchoolId(null);
         }
     };
 
@@ -122,7 +113,7 @@ const ManageSchools = () => {
                     name: responseData.data.name,
                     image: responseData.data.image,
                 };
-                setUniversity([...univercity, newUniversity]);
+                setUniversity([...university, newUniversity]);
                 // Đóng modal sau khi thêm thành công
                 setShowSignUpPopup(false);
             } else {
@@ -154,13 +145,16 @@ const ManageSchools = () => {
             console.error('Lỗi khi thêm trường mới:', error);
         }
     };
-
+    const itemsPerPage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = university.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleConfirmDelete = () => {
         // Logic to delete school with the given id
-        const updatedSchools = univercity.filter(school => school.id !== selectedSchoolId);
+        const updatedSchools = university.filter(school => school.id !== selectedSchoolId);
         setUniversity(updatedSchools);
-        setSelectedSchoolId(null); // Clear selected school id
         setDeleteConfirmationVisible(false); // Close delete confirmation modal
     };
 
@@ -170,16 +164,16 @@ const ManageSchools = () => {
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
-    if (!isLoading && !isError && univercity.length === 0) content = <div><Empty /></div>;
-    if (!isLoading && !isError && univercity.length > 0) content =
+    if (!isLoading && !isError && university.length === 0) content = <div><Empty /></div>;
+    if (!isLoading && !isError && university.length > 0) content =
 
         <>
-            {univercity?.map((item, id) => (
+            {currentItems.map((item) => (
                 <div key={item.id} className="mb-4 rounded" style={{ background: '#f3f3f3', alignContent: 'center' }}>
                     <div className='d-flex p-3 justify-content-between'>
                         <div className='d-flex gap-3'>
                             <div className='doc-img-fluid d-flex align-items-center'>
-                                <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
+                                    <img src={imageUrl} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
                             </div>
                             <div className="doc-info">
                                 <h5 className='mb-0'>{item.name}</h5>
@@ -221,12 +215,12 @@ const ManageSchools = () => {
                     <div className="row">
                         <div className="col-md-12 col-lg-8 col-xl-9 " >
                             {content}
-                            <div className='text-center mt-5 mb-5'>
+                            <div className="pagination-container">
                                 <Pagination
-                                    showSizeChanger
-                                    onShowSizeChange={onShowSizeChange}
-                                    total={mockMeta.total}
-                                    pageSize={size}
+                                current={currentPage}
+                                total={university.length}
+                                pageSize={itemsPerPage}
+                                onChange={(page) => setCurrentPage(page)}
                                 />
                             </div>
                         </div>
