@@ -66,7 +66,7 @@ const StudentList = () => {
                     <Tabs defaultActiveKey="1" items={items} />
                 </div>
             </div>
-            <Footer />
+            
         </>
     )
 }

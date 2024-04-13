@@ -30,7 +30,7 @@ const ListProjectSV = () => {
     localStorage.setItem("idUni", id);
 
     const token = JSON.parse(localStorage.getItem('token'));
-
+    localStorage.setItem(JSON.parse("idUni",id))
     const handleGetList = async () => {
         try {
             const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=1`, {

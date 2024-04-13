@@ -27,11 +27,11 @@ const ManageSchools = () => {
     const isLoading = false;
     const isError = false;
     const token = JSON.parse(localStorage.getItem('token'));
-
+    const imageUrl = "https://upload.wikimedia.org/wikipedia/vi/e/e1/Logo_HCMUAF.svg";
 
     // Mock meta data
     const mockMeta = { total: univercity.length };
-    const handleGetListUniversities = async (email, password) => {
+    const handleGetListUniversities = async () => {
         try {
             const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
                 method: 'GET'
@@ -62,12 +62,8 @@ const ManageSchools = () => {
 
     const handleDeleteSchool = async (schoolId) => {
         try {
-            // Hiển thị modal xác nhận xóa trước khi gửi yêu cầu xóa trường đến API
             setDeleteConfirmationVisible(true);
-            setSelectedSchoolId(schoolId);
-            // Tiếp tục với phần xử lý xóa trường khi người dùng xác nhận
-            // Gửi yêu cầu xóa trường đến API
-            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${selectedSchoolId}`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${schoolId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -76,21 +72,16 @@ const ManageSchools = () => {
 
             const responseData = await response.json();
 
+
             if (response.ok) {
-                // Xử lý khi xóa thành công
                 console.log('Xóa trường thành công:', responseData);
-                // Cập nhật danh sách trường sau khi xóa thành công
-                const updatedUniversities = univercity.filter(university => university.id !== selectedSchoolId);
+                const updatedUniversities = univercity.filter(university => university.id !== schoolId);
                 setUniversity(updatedUniversities);
             } else {
-                // Xử lý khi có lỗi từ phía server
                 console.error('Lỗi khi xóa trường:', responseData.message);
             }
-        } catch (error) {
-            // Xử lý lỗi nếu có
+        }  catch (error) {
             console.error('Error deleting school:', error);
-            // Đặt giá trị của selectedSchoolId lại về giá trị mặc định
-            setSelectedSchoolId(null);
         }
     };
 
@@ -179,7 +170,7 @@ const ManageSchools = () => {
                     <div className='d-flex p-3 justify-content-between'>
                         <div className='d-flex gap-3'>
                             <div className='doc-img-fluid d-flex align-items-center'>
-                                <img src={item.avatar} alt={item.name} className="" style={{ width: 50, height: 50, marginRight: 10 }} />
+                                    <img src={imageUrl} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
                             </div>
                             <div className="doc-info">
                                 <h5 className='mb-0'>{item.name}</h5>
