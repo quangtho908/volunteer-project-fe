@@ -48,7 +48,7 @@ const ListCampaign = () => {
                 const data = await response.json();
                 console.log(data);
                 //sort by status  0 and 1
-                data.data.sort((a, b) => a.status - b.status);
+                data.data.sort((a, b) => a.status - b.status); 
                 setCampaigns(data.data);
             } catch (error) {
                 console.error('Error fetching campaigns:', error);

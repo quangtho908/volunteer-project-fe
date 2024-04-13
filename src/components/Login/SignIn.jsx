@@ -105,9 +105,9 @@ const SignIn = ({ handleResponse }) => {
                 console.log("Timestamp:", timestamp);
                 localStorage.setItem("role", JSON.stringify(userRole));
 
-                if (userRole === 1) {
+                if (userRole === 0) {
                     window.location.href = '/listProjectAdmin';
-                } else if (userRole === 0) {
+                } else if (userRole === 1) {
                     window.location.href = '/list-campaign';
                 }
 
