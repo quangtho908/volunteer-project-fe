@@ -62,7 +62,6 @@ const ManageSchools = () => {
 
     const handleDeleteSchool = async (schoolId) => {
         try {
-            setDeleteConfirmationVisible(true);
             const response = await fetch(`https://project-software-z6dy.onrender.com/university/${schoolId}`, {
                 method: 'DELETE',
                 headers: {
@@ -74,6 +73,7 @@ const ManageSchools = () => {
 
 
             if (response.ok) {
+                // setDeleteConfirmationVisible(true);
                 console.log('Xóa trường thành công:', responseData);
                 const updatedUniversities = university.filter(university => university.id !== schoolId);
                 setUniversity(updatedUniversities);
