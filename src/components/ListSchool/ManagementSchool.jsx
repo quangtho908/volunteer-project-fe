@@ -60,12 +60,8 @@ const ManageSchools = () => {
 
     const handleDeleteSchool = async (schoolId) => {
         try {
-            // Hiển thị modal xác nhận xóa trước khi gửi yêu cầu xóa trường đến API
             setDeleteConfirmationVisible(true);
-            setSelectedSchoolId(schoolId);
-            // Tiếp tục với phần xử lý xóa trường khi người dùng xác nhận
-            // Gửi yêu cầu xóa trường đến API
-            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${selectedSchoolId}`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${schoolId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -73,22 +69,16 @@ const ManageSchools = () => {
             });
     
             const responseData = await response.json();
-    
+
             if (response.ok) {
-                // Xử lý khi xóa thành công
                 console.log('Xóa trường thành công:', responseData);
-                // Cập nhật danh sách trường sau khi xóa thành công
-                const updatedUniversities = univercity.filter(university => university.id !== selectedSchoolId);
+                const updatedUniversities = univercity.filter(university => university.id !== schoolId);
                 setUniversity(updatedUniversities);
             } else {
-                // Xử lý khi có lỗi từ phía server
                 console.error('Lỗi khi xóa trường:', responseData.message);
             }
         }  catch (error) {
-            // Xử lý lỗi nếu có
             console.error('Error deleting school:', error);
-            // Đặt giá trị của selectedSchoolId lại về giá trị mặc định
-            setSelectedSchoolId(null);
         }
     };
     
