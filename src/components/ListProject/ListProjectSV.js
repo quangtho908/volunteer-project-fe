@@ -26,13 +26,14 @@ const ListProjectSV = () => {
     const [projects, setProjects] = useState([]);
     const { id } = useParams();
     const [filteredStrategy, setFilteredStrategy] = useState({});
-
+    const [imageError, setImageError] = useState(false);
+    localStorage.setItem("idUni", id);
 
     const token = JSON.parse(localStorage.getItem('token'));
     localStorage.setItem(JSON.parse("idUni",id))
     const handleGetList = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=0`, {
+            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=1`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
@@ -84,8 +85,11 @@ const ListProjectSV = () => {
                                             <div className='doc-img-fluid d-flex align-items-center'>
                                                 {/* { project?.img && <img src={project?.img} className="" alt="User Image" />} */}
                                                 <img
-                                                    src={project.image}
-                                                    className="" alt="User Image" />
+                                                    src={imageError || !project.image ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s' : project.image}
+                                                    className=""
+                                                    alt="User Image"
+                                                    onError={() => setImageError(true)}
+                                                />
                                             </div>
                                             <div className="doc-info">
                                                 <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{project.name}</Link></h5>
@@ -125,7 +129,7 @@ const ListProjectSV = () => {
 
                 </div>
             </div >
-            <Footer />
+            {/* <Footer /> */}
         </div >
     )
 }
