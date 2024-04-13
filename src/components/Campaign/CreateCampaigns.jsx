@@ -146,7 +146,7 @@ const CreateCampaigns = () => {
                                 <div className="col-md-12 mb-2">
                                     <label className="form-label">Trường:</label>
                                     <select className="form-control" onChange={(e) => setUniversities(parseInt(e.target.value))}>
-                                        <option value="">Chọn trường</option> 
+                                        <option value="">Chọn trường</option> {/* Default option */}
                                         {universities.map((university) => (
                                             <option key={university.id} value={university.id}>{university.name}</option>
                                         ))}
