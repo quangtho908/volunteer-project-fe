@@ -50,7 +50,7 @@ const CompaignDetail = () => {
 
     const handleCompaignDetail = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies/`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategies/`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
@@ -84,7 +84,7 @@ const CompaignDetail = () => {
     const handleĐKCampaign = async () => {
         try {
             console.log(fullName, mssv, email, skills, filteredStrategy.id, idUni)
-            const response = await fetch(`https://project-software-z6dy.onrender.com/applicant`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/applicant`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',

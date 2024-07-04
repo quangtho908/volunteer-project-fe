@@ -15,7 +15,7 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
 
     const handleDeleteStrategy = async (strategyId) => {
         try {
-          const response = await fetch(`https://project-software-z6dy.onrender.com/strategy/${strategiesItem.id}`, {
+          const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategy/${strategiesItem.id}`, {
             method: 'DELETE',
             headers: {
               'Authorization': 'Bearer ' + token

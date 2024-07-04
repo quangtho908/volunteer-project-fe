@@ -48,7 +48,7 @@ const CreateCampaigns = () => {
     // const token = JSON.parse(localStorage.getItem('token'));
     const handleGetStrategies = async () => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/universities`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',
@@ -74,7 +74,7 @@ const CreateCampaigns = () => {
     }
     const handleCreateCampaigns = async () => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/strategy', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategy`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',

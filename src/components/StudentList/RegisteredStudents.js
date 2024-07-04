@@ -44,7 +44,7 @@ const RegisteredStudents = () => {
     ];
 
     const token = JSON.parse(localStorage.getItem('token'));
-    const apiUrl = `https://project-software-z6dy.onrender.com/applicant?strategy=${id}&status=0`;
+    const apiUrl = `${process.env.REACT_APP_PUBLIC_API}/applicant?strategy=${id}&status=0`;
 
 
     const handleGetApplicant = async () => {
@@ -72,7 +72,7 @@ const RegisteredStudents = () => {
         }
     };
     
-    const apiUrlPut = `https://project-software-z6dy.onrender.com/applicant/accept`;
+    const apiUrlPut = `${process.env.REACT_APP_PUBLIC_API}/applicant/accept`;
 
     const handlePutApplicant = async (idStudent) => {
         try {

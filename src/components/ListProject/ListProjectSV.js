@@ -32,7 +32,7 @@ const ListProjectSV = () => {
     const token = JSON.parse(localStorage.getItem('token'));
     const handleGetList = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${id}&status=1`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategies?university=${id}&status=1`, {
                 method: 'GET',
                 headers: {
                     'accept': '*/*',

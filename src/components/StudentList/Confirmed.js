@@ -91,7 +91,7 @@ const Confirmed = () => {
       
     ];
     const token = JSON.parse(localStorage.getItem('token'));
-    const apiUrl = `https://project-software-z6dy.onrender.com/applicant?strategy=${id}&status=1`;
+    const apiUrl = `${process.env.REACT_APP_PUBLIC_API}/applicant?strategy=${id}&status=1`;
 
     const handleGetApplicant = async () => {
         try {

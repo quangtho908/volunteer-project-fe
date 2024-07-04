@@ -13,7 +13,7 @@ const CampaignDetails = () => {
     useEffect(() => {
         const fetchCampaign = async () => {
             try {
-                const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?id=${id}`);
+                const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategies?id=${id}`);
                 const data = await response.json();
                 setCampaign(data.data);
             } catch (error) {
@@ -29,7 +29,7 @@ const CampaignDetails = () => {
     const handleApprove = async () => {
         try {
             // Send request to update campaign status to 'approved'
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategy/accept/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategy/accept/${id}`, {
                 method: 'PUT',
                 headers: {
                     'accept': '*/*',

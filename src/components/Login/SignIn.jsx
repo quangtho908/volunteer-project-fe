@@ -71,7 +71,7 @@ const SignIn = ({ handleResponse }) => {
 
     const handleLogin = async (email, password) => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/auth/login', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',

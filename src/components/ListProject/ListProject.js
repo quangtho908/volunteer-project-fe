@@ -26,7 +26,7 @@ const ListProject = ({ }) => {
   const token = JSON.parse(localStorage.getItem('token'));
   const handleGetStrategies = async () => {
     try {
-      const response = await fetch('https://project-software-z6dy.onrender.com/strategies', {
+      const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategies`, {
         method: 'GET',
         headers: {
           'accept': '*/*',

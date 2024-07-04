@@ -33,7 +33,7 @@ const ManageSchools = () => {
     const mockMeta = { total: university.length };
     const handleGetListUniversities = async () => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/universities`, {
                 method: 'GET'
             });
 
@@ -62,7 +62,7 @@ const ManageSchools = () => {
 
     const handleDeleteSchool = async (schoolId) => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/university/${schoolId}`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/university/${schoolId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Bearer ' + token,
@@ -87,7 +87,7 @@ const ManageSchools = () => {
 
     const handleAddSchool = async () => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/university', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/university`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',
@@ -122,7 +122,7 @@ const ManageSchools = () => {
             }
             console.log(responseData.data.id)
             
-            const response2 = await fetch('https://project-software-z6dy.onrender.com/users/university', {
+            const response2 = await fetch(`${process.env.REACT_APP_PUBLIC_API}/users/university`, {
                 method: 'POST',
                 headers: {
                     'accept': '*/*',

@@ -18,7 +18,7 @@ const ListCampaign = () => {
     const handleApprove = async (id) => {
         try {
             // Send request to update campaign status to 'approved'
-            const response = await fetch(`https://project-software-z6dy.onrender.com/strategy/accept/${id}`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategy/accept/${id}`, {
                 method: 'PUT',
                 headers: {
                     'accept': '*/*',
@@ -51,7 +51,7 @@ const ListCampaign = () => {
     const userId = decodedToken?.id;
     const getinfo = async () => {
         try {
-            const response = await fetch(`https://project-software-z6dy.onrender.com/users?id=${userId}`, {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/users?id=${userId}`, {
                 method: 'GET', headers: {
                     'accept': '*/*', 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token
                 }
@@ -59,7 +59,7 @@ const ListCampaign = () => {
             const data = await response.json();
             var univer = data.data.organization.id
             try {
-                const response = await fetch(`https://project-software-z6dy.onrender.com/strategies?university=${univer}`, {
+                const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategies?university=${univer}`, {
                     method: 'GET',
                     headers: {
                         'accept': '*/*',

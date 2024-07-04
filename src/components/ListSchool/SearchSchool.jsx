@@ -35,14 +35,14 @@ const SearchSchool = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = university.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = university?.slice(indexOfFirstItem, indexOfLastItem) || [];
 
     // Mock meta data
-    const mockMeta = { total: university.length };
+    const mockMeta = { total: university?.length || 0};
     const imageUrl = "https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg";
     const handleGetListUniversities = async () => {
         try {
-            const response = await fetch('https://project-software-z6dy.onrender.com/universities', {
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/universities`, {
                 method: 'GET'
             });
 
@@ -68,8 +68,8 @@ const SearchSchool = () => {
     let content = null;
     if (isLoading) content = <>Loading ...</>;
     if (!isLoading && isError) content = <div>Something Went Wrong !</div>;
-    if (!isLoading && !isError && university.length === 0) content = <div><Empty /></div>;
-    if (!isLoading && !isError && university.length > 0) content =
+    if (!isLoading && !isError && (university?.length || 0) === 0) content = <div><Empty /></div>;
+    if (!isLoading && !isError && (university?.length || 0) > 0) content =
         
     <>
     {currentItems.map((item, id) => (
@@ -113,7 +113,7 @@ const SearchSchool = () => {
                             <div className="pagination-container">
                                 <Pagination
                                 current={currentPage}
-                                total={university.length}
+                                total={university?.length || 0}
                                 pageSize={itemsPerPage}
                                 onChange={(page) => setCurrentPage(page)}
                                 />
