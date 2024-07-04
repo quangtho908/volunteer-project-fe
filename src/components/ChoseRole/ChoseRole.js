@@ -19,7 +19,7 @@ const Choserole = () => {
 						<div className="specialities-slider d-flex justify-content-center align-items-center gap-5">
 							<div 
 							onClick={() => {
-								window.location.href = '/login';
+								window.location.href = '/login/admin';
 								}}
 							 className="speicality-item text-center">
 								<div className="speicality-img">
@@ -31,7 +31,7 @@ const Choserole = () => {
 								<p>Lãnh đạo địa phương</p>
 							</div>
 							<div onClick={() => {
-								window.location.href = '/login';
+								window.location.href = '/login/school';
 								}} 
 								className="speicality-item text-center">
 								<div className="speicality-img">
