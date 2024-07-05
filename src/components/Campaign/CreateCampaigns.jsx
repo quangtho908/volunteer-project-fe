@@ -126,7 +126,7 @@ const CreateCampaigns = () => {
 
     const role = JSON.parse(localStorage.getItem('role'));
     if ((role !== 0)) {
-        return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
+        return <Navigate to="/login/admin" />; // hoặc trang bạn muốn chuyển hướng khi không có token
     }
     console.log(university);
 

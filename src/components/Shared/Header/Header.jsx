@@ -6,8 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import img from '../../../images/logo.png';
 import avatar from '../../../images/avatar.jpg';
 import { Button, message } from 'antd';
-import { loggedOut } from '../../../service/auth.service';
-import HeaderNav from './HeaderNav';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -33,35 +31,22 @@ const Header = () => {
         return (() => window.removeEventListener('scroll', handleScroll));
     }, [])
 
-    useEffect(() => { authChecked && setIsLogged(true) }, [authChecked]);
-
     const hanldeSignOut = () => {
         message.success("Successfully Logged Out")
         setIsLogged(false);
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-        window.location.href = '/login';
     }
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             setIsLogged(true);
+            return
         }
-    }, [])
-
-    const content = (
-        <div className='nav-popover'>
-            <div className='my-2'>
-                <h5 className='text-capitalize'>{data?.firstName + ' ' + data?.lastName}</h5>
-                <p className='my-0'>{data?.email}</p>
-                <Link to="/dashboard">Deshboard</Link>
-            </div>
-            <Button variant="outline-danger" className='w-100' size="sm" onClick={hanldeSignOut}>
-                Logged Out
-            </Button>
-        </div >
-    );
+        navigate('/');
+    }, [isLoggedIn])
+    
     return (
         <>
             <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">

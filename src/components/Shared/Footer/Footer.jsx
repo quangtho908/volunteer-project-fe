@@ -28,8 +28,8 @@ const Footer = () => {
 								<h2 className="footer-title">For Patients</h2>
 								<ul>
 									<li><Link to={'/doctors'}><FaAngleDoubleRight className='icon' />  Search for Doctors</Link></li>
-									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' />  Login</Link></li>
-									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' />  Register</Link></li>
+									<li><Link to={'/login/school'}><FaAngleDoubleRight className='icon' />  Login</Link></li>
+									<li><Link to={'/login/school'}><FaAngleDoubleRight className='icon' />  Register</Link></li>
 									<li><Link to={'/doctors'}><FaAngleDoubleRight className='icon' />  Booking</Link></li>
 									<li><Link to={'/'}><FaAngleDoubleRight className='icon' />  Patient Dashboard</Link></li>
 								</ul>
@@ -42,7 +42,7 @@ const Footer = () => {
 								<h2 className="footer-title">For Doctors</h2>
 								<ul>
 									<li><Link to={'/'}><FaAngleDoubleRight className='icon' /> Appointments</Link></li>
-									<li><Link to={'/login'}><FaAngleDoubleRight className='icon' /> Login</Link></li>
+									<li><Link to={'/login/admin'}><FaAngleDoubleRight className='icon' /> Login</Link></li>
 									<li><Link to={'/register'}><FaAngleDoubleRight className='icon' /> Register</Link></li>
 									<li><Link to={'/dashboard'}><FaAngleDoubleRight className='icon' /> Doctor Dashboard</Link></li>
 								</ul>

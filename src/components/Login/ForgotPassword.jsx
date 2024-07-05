@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         }
         if (isSuccess) {
             message.success('Successfully Password changed');
-            navigate("/login")
+            navigate("/")
         }
     }, [isError, error, isSuccess, navigate])
     return (

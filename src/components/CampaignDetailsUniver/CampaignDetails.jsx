@@ -50,7 +50,7 @@ const CampaignDetails = () => {
     };
     const role = JSON.parse(localStorage.getItem('role'));
     if ((role !== 1)) {
-        return <Navigate to="/login"/>; // hoặc trang bạn muốn chuyển hướng khi không có token
+        return <Navigate to="/login/school"/>; // hoặc trang bạn muốn chuyển hướng khi không có token
     }
     return (
         <>

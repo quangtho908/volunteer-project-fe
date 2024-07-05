@@ -3,7 +3,7 @@ import { FaEnvelope, FaLock } from 'react-icons/fa';
 import SocialSignUp from './SocialSignUp';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
 import { message } from 'antd';
@@ -22,6 +22,7 @@ const SignIn = ({ handleResponse }) => {
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const {type} = useParams();
     setTimeout(() => {
         setShow(false);
     }, 10000);
@@ -38,6 +39,12 @@ const SignIn = ({ handleResponse }) => {
     }
     useMessageEffect(resetIsLoading, resetIsSuccess, resetIsError, resetError, "Successfully Reset Password, Please check your Email!!")
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        const decodeData = decodeToken(token);
+        if(decodeData) {
+            loginSuccess(decodeData.role)
+        }
+
         if (isError) {
             message.error(error?.data?.message)
             setInfoError(error?.data?.message)
@@ -57,7 +64,7 @@ const SignIn = ({ handleResponse }) => {
             const decodedToken = jwtDecode(token);
             return decodedToken;
         } catch (error) {
-            console.error(error);
+            return null
         }
     }
 
@@ -68,6 +75,13 @@ const SignIn = ({ handleResponse }) => {
         setPassword(e.target.value);
     }
 
+    const loginSuccess = (userRole) => {
+        if (userRole === 0 && type === "admin") {
+            navigate('/listProjectAdmin');
+        } else if (userRole === 1 && type === "school") {
+            navigate('/list-campaign');
+        }
+    }
 
     const handleLogin = async (email, password) => {
         try {
@@ -105,12 +119,7 @@ const SignIn = ({ handleResponse }) => {
                 console.log("Timestamp:", timestamp);
                 localStorage.setItem("role", JSON.stringify(userRole));
 
-                if (userRole === 0) {
-                    window.location.href = '/listProjectAdmin';
-                } else if (userRole === 1) {
-                    window.location.href = '/list-campaign';
-                }
-
+                loginSuccess(userRole)
 
             } else {
                 // Handle the error response here

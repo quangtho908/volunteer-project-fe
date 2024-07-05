@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route element={<PrivateOutlet />}>
         </Route>
-        <Route path='/login' element={<SignInForm />} />
+        <Route path='/login/:type' element={<SignInForm />} />
         <Route path='/list-campaign' element={<ListCampaign />} />
         <Route path='/campaignDetail/:id' element={<CompaignDetail />} />
         <Route path='/createCampaigns' element={<CreateCampaigns />} />

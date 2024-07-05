@@ -7,7 +7,7 @@ const PrivateOutlet = () => {
   
   useEffect(() => {
     const localAuth = getUserInfo();
-    if (!localAuth) {navigate('/login', {replace: true})}
+    if (!localAuth) {navigate('/', {replace: true})}
   }, [navigate])
 
   return <Outlet />
