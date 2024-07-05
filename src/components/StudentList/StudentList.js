@@ -1,5 +1,5 @@
-import React from 'react'
-import Footer from '../Shared/Footer/Footer'
+import React, { useState } from 'react';
+import Footer from '../Shared/Footer/Footer';
 import './index.css';
 import { Navigate, useParams } from 'react-router-dom';
 import Header from '../Shared/Header/Header';
@@ -8,24 +8,24 @@ import { useGetDoctorQuery } from '../../redux/api/doctorApi';
 import { Empty, message } from 'antd';
 import SearchContent from '../Doctor/SearchDoctor/SearchContent';
 import { Tabs } from 'antd';
-import OverView from '../Doctor/DoctorProfile/OverView';
-import Location from '../Doctor/DoctorProfile/Location';
-import Review from '../Doctor/DoctorProfile/Review';
-import Availibility from '../Doctor/DoctorProfile/Availibility';
 import Detail from './Detail';
 import RegisteredStudents from './RegisteredStudents';
 import Confirmed from './Confirmed';
-
+import Cancel from './Cancel';
 
 const StudentList = () => {
     const { id } = useParams();
     const { data, isLoading, isError } = useGetDoctorQuery(id);
+    const [refresh, setRefresh] = useState(false);
+
+    const handleStatusChange = () => {
+        setRefresh(!refresh);
+    };
+
     let content = null;
     if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
     if (!isLoading && !isError && data?.id === undefined) content = <Empty />
     if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
-
-
 
     const items = [
         {
@@ -36,25 +36,24 @@ const StudentList = () => {
         {
             key: '2',
             label: 'Danh sách sinh viên đăng ký',
-            children: <RegisteredStudents />,
+            children: <RegisteredStudents onStatusChange={handleStatusChange} key={refresh}/>,
         },
         {
             key: '3',
             label: 'Sinh viên đã xét duyệt',
-            children: <Confirmed />,
+            children: <Confirmed key={refresh}/>,
         },
-        // {
-        //     key: '4',
-        //     label: 'Availability',
-        //     children: <Availibility />,
-        // },
+        {
+            key: '4',
+            label: 'Sinh viên đã bị hủy',
+            children: <Cancel key={refresh} />,
+        },
     ];
 
     const role = JSON.parse(localStorage.getItem('role'));
     if ((role !== 0)) {
         return <Navigate to="/login" />; // hoặc trang bạn muốn chuyển hướng khi không có token
     }
-
 
     return (
         <>
@@ -66,9 +65,8 @@ const StudentList = () => {
                     <Tabs defaultActiveKey="1" items={items} />
                 </div>
             </div>
-            
         </>
-    )
-}
+    );
+};
 
 export default StudentList;

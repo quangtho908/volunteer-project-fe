@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 
 
-const Confirmed = () => {
+const Cancel = () => {
     const { id } = useParams();
     const [applicant, setApplicant] = useState([]);
     const CustomButton = ({ onClick }) => (
@@ -91,7 +91,7 @@ const Confirmed = () => {
       
     ];
     const token = JSON.parse(localStorage.getItem('token'));
-    const apiUrl = `${process.env.REACT_APP_PUBLIC_API}/applicant?strategy=${id}&status=1`;
+    const apiUrl = `${process.env.REACT_APP_PUBLIC_API}/applicant?strategy=${id}&status=2`;
 
     const handleGetApplicant = async () => {
         try {
@@ -153,4 +153,4 @@ const Confirmed = () => {
     )
 }
 
-export default Confirmed
+export default Cancel

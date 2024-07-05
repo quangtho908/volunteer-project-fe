@@ -14,7 +14,7 @@ const RegisteredStudents = () => {
                 <Button style={{ backgroundColor: 'green', margin: '6px' }} onClick={() => handlePutApplicant(idStudent)}>Xác nhận</Button>
             </div>
             <div>
-                <Button style={{ backgroundColor: 'red', margin: '6px' }}>Hủy</Button>
+                <Button style={{ backgroundColor: 'red', margin: '6px' }} onClick={() => CancelApplicant(idStudent)}>Hủy</Button>
             </div>
         </div>
     );
@@ -109,6 +109,41 @@ const RegisteredStudents = () => {
         handleGetApplicant();
     }, [id]);
 
+    const apiUrlCancel = `${process.env.REACT_APP_PUBLIC_API}/applicant/cancel`;
+    const CancelApplicant = async (idStudent) => {
+        try {
+            console.log(idStudent)
+            const response = await fetch(apiUrlCancel, {
+                method: 'PUT',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({ // Chuyển đổi đối tượng thành chuỗi JSON
+                    id: parseInt(idStudent),
+                    strategy: parseInt(id)
+                })
+            });
+
+            const data = await response.json();
+
+            // Handle the response data here
+            if (response.ok) {
+                // window.location.href =`/detail/studentList/${id}`;
+                handleGetApplicant();
+            } else {
+                // Handle the error response here
+                console.error(data?.message);
+            }
+        } catch (error) {
+            // Handle any errors here
+            console.error(error);
+        }
+    };
+    useEffect(() => {
+        handleGetApplicant();
+    }, [id]);
    
 
     return (
