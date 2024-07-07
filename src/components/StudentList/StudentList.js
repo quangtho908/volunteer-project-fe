@@ -23,9 +23,9 @@ const StudentList = () => {
     };
 
     let content = null;
-    if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
-    if (!isLoading && !isError && data?.id === undefined) content = <Empty />
-    if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
+    // if (!isLoading && isError) content = <div>{message.error('Something went Wrong!')}</div>
+    // if (!isLoading && !isError && data?.id === undefined) content = <Empty />
+    // if (!isLoading && !isError && data?.id) content = <SearchContent data={data} />
 
     const items = [
         {

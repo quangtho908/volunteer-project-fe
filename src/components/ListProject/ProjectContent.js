@@ -54,7 +54,7 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
                         />
                     </div>
                     <div className="doc-info">
-                        <h5 className='mb-0'><Link to={`/detail/studentList/1`}>{strategiesItem.name}</Link></h5>
+                        <h5 className='mb-0'><Link to={`/detail/studentList/${strategiesItem.id}`}>{strategiesItem.name}</Link></h5>
                         {/* <p className='m-0 form-text'>{strategiesItem.description}</p> */}
                         {/* <p className="doc-department m-0"><img src={showImg} className="img-fluid" alt="Speciality" />Urology</p> */}
 
