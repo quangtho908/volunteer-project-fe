@@ -173,11 +173,11 @@ const ManageSchools = () => {
                     <div className='d-flex p-3 justify-content-between'>
                         <div className='d-flex gap-3'>
                             <div className='doc-img-fluid d-flex align-items-center'>
-                                    <img src={imageUrl} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
-                            </div>
+                                    <img src={item.image} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
+                            </div>  
                             <div className="doc-info">
                                 <h5 className='mb-0'>{item.name}</h5>
-                                <p className="doc-department m-0">University</p>
+                                <p className="doc-department m-0">{item.code}</p>
                             </div>
                         </div>
                         <button onClick={() => handleDeleteSchool(item.id)} className="btn btn-danger">Xóa</button>

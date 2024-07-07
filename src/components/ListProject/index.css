@@ -10,10 +10,32 @@
 .doc-info a{
     color: #1977cc !important;
 }
-.clinic-booking-button{
+/* .clinic-booking-button{
     display: inline-block;
-}
+} */
 div.pagination-container {
     display: flex;
     justify-content: center;
   }
+  .clinic-booking-button {
+    display: flex;
+    justify-content: center;
+}
+
+.clinic-booking-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.clinic-booking-button a.apt-btn {
+    margin-top: 10px; /* Adjust the margin as needed */
+}
+
+.clinic-booking-button a.pro-btn {
+    margin-top: 0;
+}
