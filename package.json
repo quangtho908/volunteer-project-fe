@@ -3,6 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-transform-async-generator-functions": "^7.24.7",
+    "@babel/plugin-transform-dynamic-import": "^7.24.7",
+    "@babel/plugin-transform-json-strings": "^7.24.7",
+    "@babel/plugin-transform-nullish-coalescing-operator": "^7.24.7",
+    "@babel/plugin-transform-numeric-separator": "^7.24.7",
+    "@babel/plugin-transform-object-rest-spread": "^7.24.7",
+    "@babel/plugin-transform-optional-catch-binding": "^7.24.7",
+    "@babel/plugin-transform-optional-chaining": "^7.24.7",
+    "@babel/plugin-transform-private-methods": "^7.24.7",
+    "@babel/plugin-transform-unicode-property-regex": "^7.24.7",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -11,6 +21,7 @@
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "^6.0.0-alpha.18",
     "@reduxjs/toolkit": "^1.9.7",
+    "@rollup/plugin-terser": "^0.4.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
@@ -18,13 +29,18 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.0.2",
     "buffer": "^6.0.3",
+    "core-js": "^3.37.1",
     "crypto-browserify": "^3.12.0",
+    "css-select": "^5.1.0",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
+    "nth-check": "^2.1.1",
+    "postcss": "^8.4.39",
     "react": "^18.2.0",
     "react-bootstrap": "^2.0.0-beta.4",
+    "react-chatbotify": "^1.7.0",
     "react-data-table-component": "^7.6.2",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.3.4",
@@ -39,6 +55,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "stream-browserify": "^3.0.0",
     "styled-components": "^6.1.8",
+    "svgo": "^3.3.2",
     "sweetalert": "^2.1.2",
     "swiper": "^11.0.5",
     "use-query-params": "^2.2.1",
@@ -77,5 +94,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-class-properties": "^7.24.7",
+    "webpack-cli": "^5.1.4"
   }
 }
