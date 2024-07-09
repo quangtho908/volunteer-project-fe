@@ -92,6 +92,7 @@
   
   .signin-signup-container .title {
     font-size: 2.2rem;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: #444;
     margin-bottom: 1rem;
     font-weight: 600;
@@ -427,53 +428,43 @@
       left: 50%;
     }
   }
+  
+  /* Add styles for the dropdown and any other necessary adjustments */
 
-  /* Add this CSS to your stylesheet */
-.sign-in-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.form-select {
   width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.input-field select {
+  width: calc(100% - 30px);
+  border: none;
+  outline: none;
+  border-radius: 50px;
+}
+
+.input-field select:focus {
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 .input-field {
-  margin-bottom: 1rem;
-  width: 100%;
   display: flex;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .fIcon {
-  margin-right: 0.5rem;
+  margin-right: 10px;
+  font-size: 20px;
 }
 
-.iBtn {
-  width: 100%;
-  padding: 0.5rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.form-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.form-footer .d-flex {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.form-footer .d-flex p, 
-.form-footer .d-flex a {
-  margin: 0 0.25rem;
-}
-  
   
