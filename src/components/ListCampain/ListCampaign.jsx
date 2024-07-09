@@ -38,6 +38,29 @@ const ListCampaign = () => {
         }
     };
 
+    const handleCancel = async (id) => {
+        try {
+            // Send request to update campaign status to 'cancelled'
+            const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/strategy/accept/${id}&status=2`, {
+                method: 'PUT',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const updatedCampaign = await response.json();
+            if (response.ok) {
+                window.location.href = '/list-campaign';
+                alert(`Hủy chiến dịch thành công`);
+            }
+
+        } catch (error) {
+            console.error('Error updating campaign status:', error);
+        }
+    };
+
     const decodeToken = (token) => {
         try {
             const decodedToken = jwtDecode(token);
