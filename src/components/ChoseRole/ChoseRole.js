@@ -9,7 +9,7 @@ const Choserole = () => {
 		<section className="section section-specialities position-relative">
 			<div className="container-fluid">
 				<div className='mb-5 section-title text-center'>
-					<h2>Bạn là ai?
+					<h2>Who are you ?
                     </h2>
 					<p className='m-0'>Chọn vai trò để tham gia vào hệ thống.</p>
 				</div>
@@ -42,7 +42,7 @@ const Choserole = () => {
 							</div>
 							<div
 							onClick={() => {
-								window.location.href = '/login/student';
+								window.location.href = '/school';
 								}} 
 							className="speicality-item text-center">
 								<div className="speicality-img">

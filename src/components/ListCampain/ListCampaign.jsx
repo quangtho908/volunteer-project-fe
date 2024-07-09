@@ -1,9 +1,9 @@
 import SubHeader from '../Shared/SubHeader'
 import Footer from '../Shared/Footer/Footer'
 import Header from '../Shared/Header/Header'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom';
-import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
+import {Navigate, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment} from "react-icons/fa";
 import axios from 'axios';
 
 import React, {useEffect, useState} from 'react';
@@ -17,7 +17,7 @@ const ListCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem('token'));
-
+   
 
     const handleApprove = async (id) => {
         try {
@@ -310,8 +310,9 @@ const ListCampaign = () => {
 
     return (
         <>
-            <Header />
-            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt" />
+            <Header/>
+            <SubHeader title="Campaign" subtitle="Lorem ipsum dolor sit amet consectetur adipisicing."/>
+
             <div className="container">
                 {/* <div className="row justify-content-center">
                     {campaigns.map(campaign => (
@@ -323,7 +324,7 @@ const ListCampaign = () => {
                                     <div className='doc-img-fluid d-flex align-items-center'>
                                         <img
                                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbFl4LFohrLy-RNdC7vp_c8M6PR0FFm55OxxjlmsIxow&s"
-                                            alt="User Image" />
+                                            alt="User Image"/>
                                     </div>
                                     <div
                                         className="doc-info  d-flex flex-column align-items-center justify-content-center">
@@ -331,7 +332,7 @@ const ListCampaign = () => {
                                             to={`/campaigns/${campaign.id}`}>{campaign.name}</Link></h5>
                                         <div className="clinic-details mt-2">
                                             <p className="form-text text-secondary">
-                                                <FaLocationArrow /> {campaign.place}</p>
+                                                <FaLocationArrow/> {campaign.place}</p>
 
                                             {campaign.status === 0 ? (
                                                 <p className="form-text text-secondary">
@@ -348,12 +349,13 @@ const ListCampaign = () => {
                                             )}
 
                                             <span
-                                                className={`tag p-1 rounded ${campaign.status === 0
+                                                className={`tag p-1 rounded ${
+                                                    campaign.status === 0
                                                         ? 'bg-warning text-white'
                                                         : campaign.status === 1
                                                             ? 'bg-success text-white'
                                                             : ''
-                                                    }`}
+                                                }`}
                                             >
                                                 {campaign.status === 0
                                                     ? 'Chờ duyệt'
@@ -372,7 +374,7 @@ const ListCampaign = () => {
 
                                             <div className='clinic-booking-button mb-2 w-100'>
                                                 <Link to={`/campaigns/${campaign.id}`}
-                                                    className="btn btn-primary btn-block">Chi tiết</Link>
+                                                      className="btn btn-primary btn-block">Chi tiết</Link>
                                             </div>
 
 
@@ -435,7 +437,7 @@ const ListCampaign = () => {
                     </TabPane>
                 </Tabs>
             </div>
-            <Footer />
+            <Footer/>
         </>
     )
 }

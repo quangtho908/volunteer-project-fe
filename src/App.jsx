@@ -15,9 +15,10 @@ import SearchSchool from './components/ListSchool/SearchSchool';
 import CompaignDetail from './components/CompaignDetail/CompainDetail';
 import CreateCampaigns from './components/Campaign/CreateCampaigns';
 import StudentList from './components/StudentList/StudentList';
+
 import ListProjectSV from './components/ListProject/ListProjectSV';
 import ManageSchools from './components/ListSchool/ManagementSchool';
-import SignUpForm from './components/Login/SignUpForm';
+
 
 
 function App() {
@@ -27,17 +28,16 @@ function App() {
         <Route element={<PrivateOutlet />}>
         </Route>
         <Route path='/login/:type' element={<SignInForm />} />
-        <Route path='/choseRole' element={<Choserole />} />
-        <Route path='/signup' element={<SignUpForm />} />
         <Route path='/list-campaign' element={<ListCampaign />} />
-        <Route path='/listProjectAdmin' element={<ListProject />} />
         <Route path='/campaignDetail/:id' element={<CompaignDetail />} />
         <Route path='/createCampaigns' element={<CreateCampaigns />} />
+        <Route path='/listProjectAdmin' element={<ListProject />} />
         <Route path='/manageSchools' element={<ManageSchools />} />
+        <Route path='/choseRole' element={<Choserole />} />
         <Route path='/' element={<Choserole />} />
         <Route path="/campaigns/:id" element={<CampaignDetails />} />
         <Route path='/detail/studentList/:id' element={<StudentList />} />
-        {/* <Route path='/school' element={<SearchSchool />} /> */}
+        <Route path='/school' element={<SearchSchool />} />
         <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

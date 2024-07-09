@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
+import SocialSignUp from './SocialSignUp';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate, useParams } from 'react-router-dom';
-import { message } from 'antd';
-import jwtDecode from 'jwt-decode';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
+import { Toast } from 'react-bootstrap';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
-import './SignInForm.css'; // Import the CSS file
+import { message } from 'antd';
+import { useMessageEffect } from '../../utils/messageSideEffect';
+import jwtDecode from 'jwt-decode';
+
 
 const SignIn = ({ handleResponse }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [infoError, setInfoError] = useState('');
     const [show, setShow] = useState(true);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [userLogin, { isError, isLoading, isSuccess, error }] = useUserLoginMutation();
     const [forgotEmail, setForgotEmail] = useState('');
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { type } = useParams();
+    const {type} = useParams();
     setTimeout(() => {
         setShow(false);
     }, 10000);
@@ -34,49 +37,50 @@ const SignIn = ({ handleResponse }) => {
         setForgotEmail("");
         setShowForgotPassword(false);
     }
-
+    useMessageEffect(resetIsLoading, resetIsSuccess, resetIsError, resetError, "Successfully Reset Password, Please check your Email!!")
     useEffect(() => {
         const token = localStorage.getItem("token");
-        const decodedToken = decodeToken(token);
-        if (decodedToken) {
-            loginSuccess(decodedToken.role, decodedToken.id, decodedToken.universityId);
+        const decodeData = decodeToken(token);
+        if(decodeData) {
+            loginSuccess(decodeData.role)
         }
 
         if (isError) {
-            message.error(error?.data?.message);
-            setInfoError(error?.data?.message);
+            message.error(error?.data?.message)
+            setInfoError(error?.data?.message)
         }
         if (isSuccess) {
             message.success('Successfully Logged in');
-            navigate('/');
+            navigate('/')
         }
-    }, [isError, error, isSuccess, navigate]);
+    }, [isError, error, isSuccess, navigate])
+
+    const handleShowForgotPassword = () => {
+        setShowForgotPassword(!showForgotPassword);
+    }
 
     const decodeToken = (token) => {
         try {
             const decodedToken = jwtDecode(token);
             return decodedToken;
         } catch (error) {
-            return null;
+            return null
         }
     }
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
     }
-    const handlePasswordChange = (e) => {
+    const handlePassWordChange = (e) => {
         setPassword(e.target.value);
     }
 
-    const loginSuccess = (userRole, userId, universityId) => {
+    const loginSuccess = (userRole) => {
         if (userRole === 0 && type === "admin") {
             navigate('/listProjectAdmin');
         } else if (userRole === 1 && type === "school") {
             navigate('/list-campaign');
-        } else if (userRole === 2 && type === "student") {
-            navigate(`/listProjectSV/${universityId}`);
         }
-        // Add more conditions as needed
     }
 
     const handleLogin = async (email, password) => {
@@ -94,39 +98,38 @@ const SignIn = ({ handleResponse }) => {
             });
 
             const data = await response.json();
-            console.log("DATA", data.data); // Log ra dữ liệu chi tiết của data.data
-
+            
+            // Handle the response data here
             if (response.ok) {
+                console.log(data.data.token);
                 localStorage.setItem("token", JSON.stringify(data.data.token));
                 const token = data?.data?.token;
                 // Decode the token here
                 const decodedToken = decodeToken(token);
                 // Access the user information from the decoded token
                 const userId = decodedToken?.id;
+                const userEmail = decodedToken?.email;
                 const userRole = decodedToken?.role;
-                const universityId = decodedToken?.university;
+                const timestamp = decodedToken?.timestamp;
                 // Do something with the user information
-                console.log("Decoded Token:", decodedToken);
-                console.log("User ID:", userId);
-                localStorage.setItem("userId", JSON.stringify(userId));
-
-                console.log("User Role:", userRole);
-                localStorage.setItem("email", JSON.stringify(email));
                 
-                console.log("University ID:", universityId);
+                console.log("User ID:", userId);
+                console.log("User Email:", userEmail);
+                console.log("User Role:", userRole);
+                console.log("Timestamp:", timestamp);
                 localStorage.setItem("role", JSON.stringify(userRole));
 
-                loginSuccess(userRole, userId, universityId);
+                loginSuccess(userRole)
 
             } else {
                 // Handle the error response here
                 console.error(data?.message);
-
+                
             }
         } catch (error) {
             // Handle any errors here
             console.error(error);
-
+           
         }
     }
 
@@ -135,33 +138,33 @@ const SignIn = ({ handleResponse }) => {
             {
                 showForgotPassword
                     ?
-                    <form className="sign-in-form" onSubmit={onHandleForgotPassword} >
+                    <form className="sign-in-form" onSubmit={onHandleForgotPassword}>
 
                     </form>
                     :
-                    <><form className="sign-in-form" >
-                        <h2 className="title">Đăng nhập</h2>
+                    <><form className="sign-in-form">
+                        <h2 className="title">Sign in</h2>
                         <div className="input-field">
                             <span className="fIcon"><FaEnvelope /></span>
-                            <input onChange={handleEmailChange} placeholder="Enter Your Email" type="email" />
+                            <input onChange={(e) => setEmail(e.target.value)} placeholder="Enter Your Email" type="email" />
                         </div>
                         {errors.email && <span className="text-danger">This field is required</span>}
                         <div className="input-field">
                             <span className="fIcon"><FaLock /></span>
-                            <input onChange={handlePasswordChange} type="password" placeholder="Enter Your Password" />
+                            <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" />
                         </div>
                         {errors.password && <span className="text-danger">This field is required</span>}
                         {infoError && <p className="text-danger">{infoError}</p>}
+                        {/* <div onClick={handleShowForgotPassword} className='text-bold' style={{ cursor: "pointer", color: '#4C25F5' }}>Forgot Password ?</div> */}
+                        {/* <button className="iBtn" value="sign In" onClick={() => handleLogin(email, password)}>
+                            {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
+                        </button> */}
+                        {/* <p className="social-text">Or Sign in with social platforms</p> */}
+                        {/* <SocialSignUp handleResponse={handleResponse} />  */}
                     </form>
-                    <div className="form-footer" >
-                        <button className="iBtn" value="Đăng nhập" onClick={() => handleLogin(email, password)}>
-                            {isLoading ? <Spinner animation="border" variant="info" /> : "Đăng nhập"}
+                        <button style={{marginLeft: '250px'}} className="iBtn" value="sign In" onClick={() => handleLogin(email, password)}>
+                            {isLoading ? <Spinner animation="border" variant="info" /> : "Sign In"}
                         </button>
-                        <div className='d-flex'>
-                            <p>Chưa có tài khoản</p>
-                            <a href="/signup">Đăng ký</a>
-                        </div>
-                    </div>
                     </>
 
             }
