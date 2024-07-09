@@ -32,7 +32,7 @@ const Header = () => {
     }, [])
 
     const hanldeSignOut = () => {
-        message.success("Successfully Logged Out")
+        message.success("Đăng xuất thành công")
         setIsLogged(false);
         localStorage.removeItem('token');
         localStorage.removeItem('role');
@@ -49,22 +49,16 @@ const Header = () => {
     
     return (
         <>
-            <div className={`navbar navbar-expand-lg navbar-light ${!show && "hideTopHeader"}`} expand="lg">
-                {/* <TopHeader /> */}
-            </div>
             <header id="header" className={`fixed-top ${!show && "stickyHeader"}`}>
-                <div className="container d-flex align-items-center">
-
+                <div className="container">
                     <Link to={'/'} className="logo me-auto">
                         <img src="https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg" alt="" className="img-fluid" />
                     </Link>
-                    {/* <HeaderNav isLoggedIn={isLoggedIn} data={data}
-                        avatar={avatar} content={content} open={open} setOpen={setOpen} /> */}
                     { isLoggedIn &&
                         <Link className="appointment-btn scrollto">
                             <span onClick={() => {
                                 hanldeSignOut();
-                            }} className="d-none d-md-inline">Log out</span></Link>
+                            }} className="d-none d-md-inline">Đăng xuất</span></Link>
 
                     }
 
