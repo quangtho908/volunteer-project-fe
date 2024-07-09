@@ -311,7 +311,7 @@ const ListCampaign = () => {
     return (
         <>
             <Header/>
-            <SubHeader title="Campaign" subtitle="Lorem ipsum dolor sit amet consectetur adipisicing."/>
+            <SubHeader title="Chiến dịch" subtitle="Danh sách các chiến dịch"/>
 
             <div className="container">
                 {/* <div className="row justify-content-center">
