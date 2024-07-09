@@ -40,7 +40,6 @@ const SearchSchool = () => {
     // Mock meta data
     const mockMeta = { total: university?.length || 0};
     const imageUrl = "https://png.pngtree.com/png-vector/20190628/ourlarge/pngtree-school-icon-for-your-project-png-image_1520454.jpg";
-    
     const handleGetListUniversities = async () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/universities`, {
@@ -80,11 +79,11 @@ const SearchSchool = () => {
             }} className='d-flex p-3 justify-content-between'>
                 <div className='d-flex gap-3'>
                     <div className='doc-img-fluid d-flex align-items-center'>
-                        <img src={item.image} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
+                        <img src={imageUrl} alt={item.name} className="" style={{ width: 80, height: 80, marginRight: 10}} />
                     </div>
                     <div className="doc-info">
                         <h5 className='mb-0'>{item.name}</h5>
-                        <p className="doc-department m-0">{item.code}</p>
+                        <p className="doc-department m-0">University</p>
                     </div>
                 </div>
             </div>

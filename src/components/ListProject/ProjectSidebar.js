@@ -39,6 +39,19 @@ const ProjectSidebar = ({ }) => {
     <div className="col-md-12 col-lg-4 col-xl-3">
 
       <div className="p-3 rounded" style={{ background: '#f3f3f3' }}>
+        <div className="mb-3">
+          
+        </div>
+
+        {/* <div className='mb-3'>
+          <h6 style={{ color: '#05335c' }}>Date Range</h6>
+          <DatePicker
+            style={{ width: "100%" }}
+            format="YYYY-MM-DD HH:mm:ss"
+            // onChange={handleDateChange}
+          />
+        </div> */}
+
         <div className="md-3" >
         <h6 style={{ color: '#05335c' }}>Mùa hè xanh</h6>
                 <div className="card shadow border-0 mb-5">
