@@ -1,0 +1,11 @@
+.chatbot-container {
+    background-color: #f0f0f0; /* Thay đổi màu nền */
+    border-radius: 10px;       /* Thay đổi bán kính bo tròn */
+    font-family: 'Arial', sans-serif; /* Thay đổi font chữ */
+  }
+  
+  .chatbot-message {
+    color: #333; /* Thay đổi màu chữ */
+    font-size: 16px; /* Thay đổi kích thước chữ */
+  }
+  
