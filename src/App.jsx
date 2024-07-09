@@ -39,7 +39,6 @@ function App() {
         <Route path='/detail/studentList/:id' element={<StudentList />} />
         {/* <Route path='/school' element={<SearchSchool />} /> */}
         <Route path='/listProjectSV/:id' element={<ListProjectSV />} />
-        <Route path='/manageSchools' element={<ManageSchools />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </Router >

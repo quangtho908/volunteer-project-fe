@@ -68,7 +68,7 @@ const ListProjectSV = () => {
     return (
         <div>
             <Header />
-            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt"/>            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
+            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt" />            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
                 <div className="container-fluid">
                     <div className="row">
 

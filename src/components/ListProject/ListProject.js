@@ -97,6 +97,14 @@ const ListProject = () => {
     handleGetUniversities(); // This should run only once when the component mounts
   }, []); // Empty dependency array means this effect runs once
   
+  const handleCreateCampaigns = () => {
+    window.location.href = '/createCampaigns';
+  };
+
+  const handleManageSchools = () => {
+    window.location.href = '/manageSchools';
+    console.log("manageSchools");
+  };  
 
   const role = JSON.parse(localStorage.getItem('role'));
   if ((role !== 0)) {
@@ -112,9 +120,9 @@ const ListProject = () => {
           <div className="row">
             <div className="col-md-12 col-lg-4 col-xl-3">
               <div className="p-3 rounded bg-gray-200">
-                  <button onClick={() => window.location.href = '/manageSchools'}
+                  <button onClick={handleManageSchools}
                     className="btn btn-primary"> Quản lý Trường</button>
-                  <button onClick={() => window.location.href = '/createCampaigns'}
+                  <button onClick={handleCreateCampaigns}
                     className="btn btn-primary" style={{ marginLeft: 5 }}> Tạo chiến dịch</button>
               </div>
               <div className="p-3 rounded bg-gray-200">
