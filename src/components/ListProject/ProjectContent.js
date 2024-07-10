@@ -90,7 +90,7 @@ const ProjectContent = ({ strategiesItem, updateStrategiesList }) => {
                         </ul>
                     </div>
                     <div className="clinic-booking">
-                        <div  className=''>
+                        <div  className='clinic-booking-button'>
                             <Link to={`/detail/studentList/${strategiesItem.id}`} className="pro-btn" >   chi tiết   </Link>
                         </div>
 
