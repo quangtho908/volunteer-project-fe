@@ -68,11 +68,30 @@ const ListProjectSV = () => {
     return (
         <div>
             <Header />
-            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt"/>            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
+            <SubHeader title='Danh sách chiến dịch' subtitle="Danh sach các chiến dịch cần duyệt" />
+            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
                 <div className="container-fluid">
                     <div className="row">
+                        <div className="col-md-12 col-lg-4 col-xl-3">
+                            <div className="md-3">
+                                <h6 className="text-blue-700">Mùa hè xanh</h6>
+                                <div className="card shadow border-0 mb-5">
+                                    <img src="https://dainam.edu.vn/uploads/images/ckeqouwcp4qi5juiulff20230802101300_thump.jpg" alt="" className="img-fluid rounded-t-lg" style={{ maxHeight: '17rem', objectFit: 'cover' }} />
+                                    <div className="p-2">
+                                        <p className="mb-4">Mùa hè xanh 2023: Chiến dịch tình nguyện đầy nhiệt huyết của tuổi trẻ DNU tại mảnh đất Cao Bằng</p>
+                                        <a href='https://dainam.edu.vn/vi/tin-tuc/mua-he-xanh-2023-chien-dich-tinh-nguyen-day-nhiet-huyet-cua-tuoi-tre-dnu-tai-manh-dat-cao-bang' className="btn btn-primary" target="_blank">Truy cập</a>
+                                    </div>
+                                </div>
 
-                        <ProjectSidebar />
+                                <div className="card shadow border-0 mb-5">
+                                    <img src="https://doanthanhnien.vn/Content/uploads/images/133382190131936031_356622827_670872445078522_7208570064784879038_n.jpg" alt="" className="img-fluid rounded-t-lg" style={{ maxHeight: '17rem', objectFit: 'cover' }} />
+                                    <div className="p-2">
+                                        <p className="mb-4">Mùa hè xanh - Nơi cống hiến tri thức trẻ, góp phần dựng xây quê hương, đất nước.</p>
+                                        <a href='https://doanthanhnien.vn/tin-tuc/mua-he-xanh/mua-he-xanh---noi-cong-hien-tri-thuc-tre-gop-phan-dung-xay-que-huong-dat-nuoc' className="btn btn-primary" target="_blank">Truy cập</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="col-md-12 col-lg-8 col-xl-9">
                             {projects.map(project => (
@@ -110,7 +129,7 @@ const ListProjectSV = () => {
                                                 </div>
                                                 <div className="clinic-booking">
                                                     <div className='clinic-booking-button'>
-                                                        <Link to={`/campaignDetail/${project.id}`} className="pro-btn"> Chi tiết </Link>
+                                                        <Link to={`/campaignDetail/${project.id}`} className="pro-btn"> chi tiết </Link>
                                                     </div>
 
                                                 </div>

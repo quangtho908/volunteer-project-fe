@@ -1,9 +1,9 @@
 import SubHeader from '../Shared/SubHeader'
 import Footer from '../Shared/Footer/Footer'
 import Header from '../Shared/Header/Header'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { Link } from 'react-router-dom';
-import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
+import {Navigate, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import {FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment} from "react-icons/fa";
 import axios from 'axios';
 
 import React, {useEffect, useState} from 'react';
@@ -19,7 +19,7 @@ const ListCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem('token'));
-
+   
 
     const handleApprove = async (id) => {
         try {
@@ -207,8 +207,9 @@ const ListCampaign = () => {
 
     return (
         <>
-            <Header />
-            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt" />
+            <Header/>
+            <SubHeader title="Chiến dịch" subtitle="Danh sách các chiến dịch"/>
+
             <div className="container">
             <ChatBotComponent/>
                   <Tabs defaultActiveKey="1" centered>
@@ -229,7 +230,7 @@ const ListCampaign = () => {
                     </TabPane>
                 </Tabs>
             </div>
-            <Footer />
+            <Footer/>
         </>
     )
 }

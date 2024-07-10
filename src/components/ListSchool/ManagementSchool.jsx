@@ -206,7 +206,7 @@ const ManageSchools = () => {
     return (
         <div>
             <Header />
-            <SubHeader title='Universities' subtitle='Quản lý các trường .' />
+            <SubHeader title='Trường đại học' subtitle='Quản lý các trường' />
             <div className="container" style={{ marginBottom: 80, marginTop: 50, marginLeft: 200, marginRight: 200 }}>
                 <div className="container-fluid">
                     <div className='mb-4 section-title text-center' style={{ marginLeft: -250 }}>

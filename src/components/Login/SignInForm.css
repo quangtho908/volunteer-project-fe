@@ -427,53 +427,5 @@
       left: 50%;
     }
   }
-
-  /* Add this CSS to your stylesheet */
-.sign-in-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.input-field {
-  margin-bottom: 1rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.fIcon {
-  margin-right: 0.5rem;
-}
-
-.iBtn {
-  width: 100%;
-  padding: 0.5rem;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.form-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.form-footer .d-flex {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.form-footer .d-flex p, 
-.form-footer .d-flex a {
-  margin: 0 0.25rem;
-}
   
   

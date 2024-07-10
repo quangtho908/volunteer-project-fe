@@ -5,6 +5,7 @@ const SubHeader = ({title, subtitle}) => {
     const sectionStyle = {
         background: `url(${bgImage}) no-repeat 50% 50%`,
         backgroundSize: 'cover',
+        position: 'relative',
         padding: '120px 0px 70px 0px',
     };
 
@@ -18,6 +19,7 @@ const SubHeader = ({title, subtitle}) => {
         width: '100%',
         height: '100%',
         opacity: '0.1',
+        background: '#223a66',
     };
 
     return (
