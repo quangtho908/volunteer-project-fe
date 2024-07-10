@@ -68,8 +68,7 @@ const ListProjectSV = () => {
     return (
         <div>
             <Header />
-            <SubHeader title='Danh sách chiến dịch' />
-            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
+            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt"/>            <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
                 <div className="container-fluid">
                     <div className="row">
 
@@ -111,7 +110,7 @@ const ListProjectSV = () => {
                                                 </div>
                                                 <div className="clinic-booking">
                                                     <div className='clinic-booking-button'>
-                                                        <Link to={`/campaignDetail/${project.id}`} className="pro-btn"> chi tiết </Link>
+                                                        <Link to={`/campaignDetail/${project.id}`} className="pro-btn"> Chi tiết </Link>
                                                     </div>
 
                                                 </div>

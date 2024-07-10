@@ -1,12 +1,14 @@
 import SubHeader from '../Shared/SubHeader'
 import Footer from '../Shared/Footer/Footer'
 import Header from '../Shared/Header/Header'
-import {Navigate, useNavigate} from 'react-router-dom'
-import {Link} from 'react-router-dom';
-import {FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment} from "react-icons/fa";
+import { Navigate, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
 import axios from 'axios';
+
 import React, {useEffect, useState} from 'react';
 import {Tabs, Button} from "antd";
+
 import jwtDecode from 'jwt-decode';
 import ChatBotComponent from '../ChatboxComponent/chatbox';
 
@@ -17,7 +19,7 @@ const ListCampaign = () => {
     const [campaigns, setCampaigns] = useState([]);
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem('token'));
-   
+
 
     const handleApprove = async (id) => {
         try {
@@ -105,7 +107,9 @@ const ListCampaign = () => {
 
     const role = JSON.parse(localStorage.getItem('role'));
     if ((role !== 1)) {
+
         return <Navigate to="/login/school"/>; 
+
     }
     const renderCampaigns = (campaignList) => (
         campaignList.map(campaign => (
@@ -203,9 +207,8 @@ const ListCampaign = () => {
 
     return (
         <>
-            <Header/>
-            <SubHeader title="Campaign" subtitle="Lorem ipsum dolor sit amet consectetur adipisicing."/>
-
+            <Header />
+            <SubHeader title="Danh sách chiến dịch" subtitle="Danh sach các chiến dịch cần duyệt" />
             <div className="container">
             <ChatBotComponent/>
                   <Tabs defaultActiveKey="1" centered>
@@ -226,7 +229,7 @@ const ListCampaign = () => {
                     </TabPane>
                 </Tabs>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

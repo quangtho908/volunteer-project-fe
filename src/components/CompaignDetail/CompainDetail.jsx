@@ -39,7 +39,6 @@ const CompaignDetail = () => {
 
     const [fullName, setFullName] = useState('');
     const [mssv, setMssv] = useState('');
-    const [email, setEmail] = useState('');
     const [skills, setSkills] = useState('');
 
     const { id } = useParams();
@@ -83,7 +82,9 @@ const CompaignDetail = () => {
 
     const handleĐKCampaign = async () => {
         try {
-            console.log(fullName, mssv, email, skills, filteredStrategy.id, idUni)
+            
+            const localEmail = JSON.parse(localStorage.getItem('email')); // Lấy email từ localStorage
+    
             const response = await fetch(`${process.env.REACT_APP_PUBLIC_API}/applicant`, {
                 method: 'POST',
                 headers: {
@@ -91,43 +92,39 @@ const CompaignDetail = () => {
                     // 'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json',
                 },
-
                 body: JSON.stringify({
                     fullName: fullName,
                     mssv: mssv,
-                    email: email,
+                    email: localEmail, // Sử dụng email từ localStorage thay vì state email
                     skill: skills,
                     strategy: filteredStrategy.id,
                     university: idUni,
                 }),
-
             });
-
+    
             const data = await response.json();
-            // Handle the response data here
+            // Xử lý dữ liệu response ở đây
             if (response.ok) {
-                console.log('ok')
-                console.log(data.data)
+                console.log('ok');
+                console.log(data.data);
                 if (data.message === "SUCCESSFULLY") {
                     console.log('Đăng ký thành công');
-                    window.location.href = `/listProjectSV/${idUni}`
+                    window.location.href = `/listProjectSV/${idUni}`;
                     alert('Đăng ký thành công');
                 } else {
                     console.error('Đăng ký không thành công:', data.message);
                     // Hiển thị thông báo lỗi cho người dùng (nếu cần)
                 }
-
             } else {
-                // Handle the error response here
+                // Xử lý response lỗi ở đây
                 console.error(data?.message);
-
             }
         } catch (error) {
-            // Handle any errors here
+            // Xử lý lỗi nếu có
             console.error(error);
-
         }
-    }
+    };
+    
 
     useEffect(() => {
         handleCompaignDetail()
@@ -203,13 +200,6 @@ const CompaignDetail = () => {
                                     <div className="form-group mb-2 card-label">
                                         <label>Mã số sinh viên</label>
                                         <input onChange={(e) => setMssv(e.target.value)} type='text' className="form-control" />
-                                    </div>
-                                </div>
-
-                                <div className="col-md-12">
-                                    <div className="form-group mb-2 card-label">
-                                        <label>Email</label>
-                                        <input onChange={(e) => setEmail(e.target.value)} type='email' className="form-control" />
                                     </div>
                                 </div>
 
