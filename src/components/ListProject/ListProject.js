@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Select, Pagination, Empty } from 'antd';
+import { Select, Pagination, Empty, Tabs } from 'antd';
 import Footer from '../Shared/Footer/Footer';
-import SearchSidebar from '../Doctor/SearchDoctor/SearchSidebar';
-import SearchContent from '../Doctor/SearchDoctor/SearchContent';
 import Header from '../Shared/Header/Header';
 import SubHeader from '../Shared/SubHeader';
 import ProjectContent from './ProjectContent';
-import ProjectSidebar from './ProjectSidebar';
 import { Navigate } from 'react-router-dom';
 import "./index.css";
 
 const { Option } = Select;
+const { TabPane } = Tabs;
 
 const ListProject = () => {
   const [universities, setUniversities] = useState([]);
   const [selectedUniversityId, setSelectedUniversityId] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
   const [strategies, setStrategies] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [status, setStatus] = useState('0'); // Default to pending
+  const itemsPerPage = 5;
   const token = JSON.parse(localStorage.getItem('token'));
 
   const handleGetUniversities = async () => {
@@ -35,7 +33,6 @@ const ListProject = () => {
 
       if (response.ok) {
         setUniversities(data.data);
-        console.log(data.data);
       } else {
         console.error(data?.message);
       }
@@ -46,17 +43,15 @@ const ListProject = () => {
 
   const handleUniversityChange = (value) => {
     setSelectedUniversityId(value);
-    setFilter(value);
     setCurrentPage(1); // Reset to the first page when the filter changes
-    updateStrategiesList(value); // Pass the selected university ID to the update function
-    console.log(value);
+    updateStrategiesList(value, status); // Pass the selected university ID to the update function
   };
 
-  const handleGetStrategies = async (selectedFilter) => {
+  const handleGetStrategies = async (selectedFilter, statusFilter) => {
     try {
       const url = selectedFilter
-        ? `${process.env.REACT_APP_PUBLIC_API}/strategies?university=${selectedFilter}&status=0`
-        : `${process.env.REACT_APP_PUBLIC_API}/strategies`;
+        ? `${process.env.REACT_APP_PUBLIC_API}/strategies?university=${selectedFilter}&status=${statusFilter}`
+        : `${process.env.REACT_APP_PUBLIC_API}/strategies?status=${statusFilter}`;
 
       const response = await fetch(url, {
         method: 'GET',
@@ -67,11 +62,9 @@ const ListProject = () => {
       });
 
       const data = await response.json();
-      console.log("trường được chọn:" + selectedFilter);
+
       if (response.ok) {
-        let filteredData = data.data;
-        console.log("ds ban đầu:", filteredData); // Logging the original array
-        setStrategies(filteredData);
+        setStrategies(data.data);
       } else {
         console.error(data?.message);
       }
@@ -80,9 +73,8 @@ const ListProject = () => {
     }
   };
 
-
-  const updateStrategiesList = (universityId) => {
-    handleGetStrategies(universityId);
+  const updateStrategiesList = (universityId, status) => {
+    handleGetStrategies(universityId, status);
     handleGetUniversities();
   };
 
@@ -91,9 +83,9 @@ const ListProject = () => {
   const currentItems = strategies.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
-    handleGetStrategies(selectedUniversityId);
+    handleGetStrategies(selectedUniversityId, status);
     handleGetUniversities();
-  }, [selectedUniversityId]);
+  }, [selectedUniversityId, status]);
 
   const role = JSON.parse(localStorage.getItem('role'));
   if ((role !== 0)) {
@@ -156,16 +148,38 @@ const ListProject = () => {
                 </Select>
               </div>
 
-              <div className='text-center mt-2 mb-5'>
-                {currentItems.map((strategiesItem) => (
-                  <ProjectContent
-                    key={strategiesItem.id}
-                    strategiesItem={strategiesItem}
-                    updateStrategiesList={updateStrategiesList}
-                  />
-                ))}
-                {currentItems.length === 0 && <Empty description="Chưa có chiến dịch nào!" />}
-              </div>
+              <Tabs defaultActiveKey="0" onChange={(key) => setStatus(key)}>
+                <TabPane tab="Chiến dịch chờ duyệt" key="0">
+                  {currentItems.map((strategiesItem) => (
+                    <ProjectContent
+                      key={strategiesItem.id}
+                      strategiesItem={strategiesItem}
+                      updateStrategiesList={() => updateStrategiesList(selectedUniversityId, status)}
+                    />
+                  ))}
+                  {currentItems.length === 0 && <Empty description="Chưa có chiến dịch nào!" />}
+                </TabPane>
+                <TabPane tab="Chiến dịch đã duyệt" key="1">
+                  {currentItems.map((strategiesItem) => (
+                    <ProjectContent
+                      key={strategiesItem.id}
+                      strategiesItem={strategiesItem}
+                      updateStrategiesList={() => updateStrategiesList(selectedUniversityId, status)}
+                    />
+                  ))}
+                  {currentItems.length === 0 && <Empty description="Chưa có chiến dịch nào!" />}
+                </TabPane>
+                <TabPane tab="Chiến dịch đã hủy" key="2">
+                  {currentItems.map((strategiesItem) => (
+                    <ProjectContent
+                      key={strategiesItem.id}
+                      strategiesItem={strategiesItem}
+                      updateStrategiesList={() => updateStrategiesList(selectedUniversityId, status)}
+                    />
+                  ))}
+                  {currentItems.length === 0 && <Empty description="Chưa có chiến dịch nào!" />}
+                </TabPane>
+              </Tabs>
 
               <div className="pagination-container">
                 <Pagination
