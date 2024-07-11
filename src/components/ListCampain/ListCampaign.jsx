@@ -211,7 +211,7 @@ const ListCampaign = () => {
             <SubHeader title="Chiến dịch" subtitle="Danh sách các chiến dịch"/>
 
             <div className="container">
-            <ChatBotComponent/>
+                 <ChatBotComponent/>
                   <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="Danh sách chờ duyệt" key="1">
                         <div className="row justify-content-center">
