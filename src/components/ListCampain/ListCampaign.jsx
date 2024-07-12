@@ -10,7 +10,6 @@ import React, {useEffect, useState} from 'react';
 import {Tabs, Button} from "antd";
 
 import jwtDecode from 'jwt-decode';
-import ChatBotComponent from '../ChatboxComponent/chatbox';
 
 
 const { TabPane } = Tabs;
@@ -211,7 +210,7 @@ const ListCampaign = () => {
             <SubHeader title="Chiến dịch" subtitle="Danh sách các chiến dịch"/>
 
             <div className="container">
-                 <ChatBotComponent/>
+                 
                   <Tabs defaultActiveKey="1" centered>
                     <TabPane tab="Danh sách chờ duyệt" key="1">
                         <div className="row justify-content-center">

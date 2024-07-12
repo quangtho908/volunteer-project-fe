@@ -1,3 +1,49 @@
+.signin-signup-container {
+  position: relative;
+}
+
+.pageCloseBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1001; /* Đảm bảo nút này nằm trên marquee */
+}
+
+.marquee-container {
+  position: absolute;
+  top: 50px; /* Đặt cách xa nút đóng trang */
+  width: 100%;
+  overflow: hidden;
+  z-index: 1000;
+  color: white;
+  padding: 10px 0;
+}
+
+.marquee-content {
+  display: flex;
+  width: 100%;
+  animation: marquee 50s linear infinite;
+}
+
+.marquee-text {
+  white-space: nowrap;
+  font-size: 24px;
+  font-weight: 500;
+  padding-left: 100%;
+  /* Thêm hiệu ứng bóng đổ */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Điều chỉnh giá trị bóng đổ tùy ý */
+}
+
+@keyframes marquee {
+  0% {
+      transform: translateX(-100%);
+  }
+  100% {
+      transform: translateX(100%); /* Chạy hết qua bên phải */
+  }
+}
+
+
 .signin-signup-container{
     position: relative;
     width: 100%;

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { useForm } from "react-hook-form";
 import Spinner from 'react-bootstrap/Spinner';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import jwtDecode from 'jwt-decode';
 import { useResetPasswordMutation, useUserLoginMutation } from '../../redux/api/authApi';
-import './SignInForm.css'; // Import the CSS file
+import './SignInForm.css';
 
-const SignIn = ({ handleResponse }) => {
+const SignIn = ({ handleResponse, type }) => {
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [infoError, setInfoError] = useState('');
     const [show, setShow] = useState(true);
@@ -19,7 +19,7 @@ const SignIn = ({ handleResponse }) => {
     const [resetPassword, { isError: resetIsError, isSuccess: resetIsSuccess, error: resetError, isLoading: resetIsLoading }] = useResetPasswordMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { type } = useParams();
+
     setTimeout(() => {
         setShow(false);
     }, 10000);
@@ -112,7 +112,7 @@ const SignIn = ({ handleResponse }) => {
 
                 console.log("User Role:", userRole);
                 localStorage.setItem("email", JSON.stringify(email));
-                
+
                 console.log("University ID:", universityId);
                 localStorage.setItem("role", JSON.stringify(userRole));
 
@@ -136,34 +136,36 @@ const SignIn = ({ handleResponse }) => {
                 showForgotPassword
                     ?
                     <form className="sign-in-form" onSubmit={onHandleForgotPassword} >
-
+                        {/* Nội dung form Forgot Password */}
                     </form>
                     :
-                    <><form className="sign-in-form" >
-                        <h2 className="title">Đăng nhập</h2>
-                        <div className="input-field">
-                            <span className="fIcon"><FaEnvelope /></span>
-                            <input onChange={handleEmailChange} placeholder="Enter Your Email" type="email" />
+                    <>
+                        <form className="sign-in-form" >
+                            <h2 className="title">Đăng nhập</h2>
+                            <div className="input-field">
+                                <span className="fIcon"><FaEnvelope /></span>
+                                <input onChange={handleEmailChange} placeholder="Enter Your Email" type="email" />
+                            </div>
+                            {errors.email && <span className="text-danger">This field is required</span>}
+                            <div className="input-field">
+                                <span className="fIcon"><FaLock /></span>
+                                <input onChange={handlePasswordChange} type="password" placeholder="Enter Your Password" />
+                            </div>
+                            {errors.password && <span className="text-danger">This field is required</span>}
+                            {infoError && <p className="text-danger">{infoError}</p>}
+                        </form>
+                        <div className="form-footer" >
+                            <button className="iBtn" value="Đăng nhập" onClick={() => handleLogin(email, password)}>
+                                {isLoading ? <Spinner animation="border" variant="info" /> : "Đăng nhập"}
+                            </button>
+                            {!['admin', 'school'].includes(type) && (
+                                <div className='d-flex'>
+                                    <p style={{ marginRight: 5 }}>Chưa có tài khoản</p>
+                                    <a href="/signup">Đăng ký</a>
+                                </div>
+                            )}
                         </div>
-                        {errors.email && <span className="text-danger">This field is required</span>}
-                        <div className="input-field">
-                            <span className="fIcon"><FaLock /></span>
-                            <input onChange={handlePasswordChange} type="password" placeholder="Enter Your Password" />
-                        </div>
-                        {errors.password && <span className="text-danger">This field is required</span>}
-                        {infoError && <p className="text-danger">{infoError}</p>}
-                    </form>
-                    <div className="form-footer" >
-                        <button className="iBtn" value="Đăng nhập" onClick={() => handleLogin(email, password)}>
-                            {isLoading ? <Spinner animation="border" variant="info" /> : "Đăng nhập"}
-                        </button>
-                        <div className='d-flex'>
-                            <p>Chưa có tài khoản</p>
-                            <a href="/signup">Đăng ký</a>
-                        </div>
-                    </div>
                     </>
-
             }
         </>
     );

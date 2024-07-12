@@ -19,7 +19,6 @@ import { Link } from 'react-router-dom';
 import { FaLocationArrow, FaRegThumbsUp, FaDollarSign, FaComment } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
 import { useParams } from 'react-router-dom';
-import ChatBotComponent from '../ChatboxComponent/chatbox';
 
 const ListProjectSV = () => {
 
@@ -70,7 +69,7 @@ const ListProjectSV = () => {
             <Header />
             <SubHeader title='Danh sách chiến dịch' subtitle="Danh sach các chiến dịch cần duyệt" />
             <div className="container" style={{ marginBottom: 200, marginTop: 80 }}>
-            <ChatBotComponent/>
+           
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12 col-lg-4 col-xl-3">
