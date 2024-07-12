@@ -1,0 +1,58 @@
+/* customChatBox.css */
+
+/* Đổi màu nền của cửa sổ chat */
+.rcb-chat-window {
+    background-color: #f0f0f0;
+}
+
+/* Thay đổi kích thước của cửa sổ chat */
+.rcb-chat-window {
+    width: 400px;
+    height: 600px;
+}
+
+/* Thay đổi vị trí của cửa sổ chat */
+.rcb-chat-window {
+    right: 30px;
+    bottom: 30px;
+}
+
+/* Thay đổi box shadow */
+.rcb-chat-window {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Thay đổi animation cho mở cửa sổ chat */
+@keyframes expand {
+    0% {
+        transform: translate(50%, 50%) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Thay đổi animation cho đóng cửa sổ chat */
+@keyframes collapse {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(50%, 50%) scale(0);
+        opacity: 0;
+    }
+}
+.chatbot-container {
+    background-color: #de0e15; /* Thay đổi màu nền */
+    border-radius: 10px;       /* Thay đổi bán kính bo tròn */
+    font-family: 'Arial', sans-serif; /* Thay đổi font chữ */
+  }
+  
+  .chatbot-message {
+    color: #c5c5c5; /* Thay đổi màu chữ */
+    font-size: 16px; /* Thay đổi kích thước chữ */
+  }
+  
